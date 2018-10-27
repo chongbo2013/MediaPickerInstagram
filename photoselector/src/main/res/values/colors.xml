@@ -18,4 +18,5 @@
     <color name="image_overlay_false">#20000000</color>
     <color name="transparent_white">#F0FFFFFF</color>
     <color name="transparent_db">#E0DBDBDB</color>
+    <color name="line_color">#EEEEEE</color>
 </resources>

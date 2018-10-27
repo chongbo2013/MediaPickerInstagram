@@ -44,7 +44,7 @@ public class FolderPopupWindow extends PopupWindow implements View.OnClickListen
 
     public FolderPopupWindow(Context context, int mediaMimeType) {
         this.mContext = context;
-        window = LayoutInflater.from(mContext).inflate(R.layout.window_folder, null);
+        window = LayoutInflater.from(mContext).inflate(R.layout.photo_window_folder, null);
         this.setContentView(window);
         this.setWidth(ScreenUtils.getScreenWidth(mContext));
         this.setHeight(ScreenUtils.getScreenHeight(mContext));

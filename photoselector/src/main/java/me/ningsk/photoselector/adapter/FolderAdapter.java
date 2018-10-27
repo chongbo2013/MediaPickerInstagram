@@ -1,14 +1,12 @@
 package me.ningsk.photoselector.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +21,6 @@ import java.util.List;
 import me.ningsk.photoselector.R;
 import me.ningsk.photoselector.bean.MediaBean;
 import me.ningsk.photoselector.bean.FolderBean;
-import me.ningsk.photoselector.utils.LogUtils;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder>{
 
@@ -50,7 +47,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_folder, parent, false);
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.photo_item_folder, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -59,7 +56,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         final FolderBean folder = folders.get(position);
         String name = folder.getName();
         int imageNum = folder.getImageNum();
-        String imagePath = folder.getFirstImagePath();
+        String imagePath = folders.get(0).getPath();
         boolean isChecked = folder.isChecked();
         int checkedNum = folder.getCheckedNum();
         holder.tvSign.setVisibility(checkedNum > 0 ? View.VISIBLE : View.INVISIBLE);

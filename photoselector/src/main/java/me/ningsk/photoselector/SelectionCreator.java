@@ -51,13 +51,7 @@ public final class SelectionCreator {
         return this;
     }
 
-    /**
-     * 是否支持暗色状态栏
-     */
-    public SelectionCreator supportDarkStatusBar(boolean supportDarkStatusBar) {
-        mOptions.supportDarkStatusBar = supportDarkStatusBar;
-        return this;
-    }
+
 
 
     /**

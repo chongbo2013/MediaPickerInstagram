@@ -3,16 +3,11 @@ package me.ningsk.photoselector.adapter;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +21,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,10 +41,10 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>{
     private RecyclerView mRecyclerView;
 
     private final Context mContext;
-    private ArrayList<MediaBean> mMedias = new ArrayList<>();
+    private List<MediaBean> mMedias = new ArrayList<>();
     private SelectionOptions mOptions;
     private int mMaxSelectable;
-    private ArrayList<MediaBean> selectMedias = new ArrayList<>();
+    private List<MediaBean> selectMedias = new ArrayList<>();
 
     private OnPhotoSelectChangedListener imageSelectChangedListener;
     private Animation animation;
@@ -64,6 +58,11 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>{
         mMaxSelectable = mOptions.maxSelectable;
         animation = OptAnimationLoader.loadAnimation(context, R.anim.modal_in);
         zoomAnim = true;
+    }
+
+    public void bindImagesData(List<MediaBean> medias) {
+        this.mMedias = medias;
+        notifyDataSetChanged();
     }
 
     public void bindSelectImages(ArrayList<MediaBean> medias) {
@@ -106,7 +105,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_media_content, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.photo_item_media_content, parent, false);
         return new ViewHolder(view);
     }
 

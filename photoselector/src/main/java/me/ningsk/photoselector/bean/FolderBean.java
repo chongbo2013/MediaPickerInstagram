@@ -9,7 +9,6 @@ import java.util.List;
 public class FolderBean implements Parcelable {
     private String name;
     private String path;
-    private String firstImagePath;
     private int imageNum;
     private int checkedNum;
     private boolean isChecked;
@@ -38,14 +37,6 @@ public class FolderBean implements Parcelable {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public String getFirstImagePath() {
-        return firstImagePath;
-    }
-
-    public void setFirstImagePath(String firstImagePath) {
-        this.firstImagePath = firstImagePath;
     }
 
     public int getImageNum() {
@@ -84,7 +75,6 @@ public class FolderBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeString(this.path);
-        dest.writeString(this.firstImagePath);
         dest.writeInt(this.imageNum);
         dest.writeInt(this.checkedNum);
         dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
@@ -97,7 +87,6 @@ public class FolderBean implements Parcelable {
     protected FolderBean(Parcel in) {
         this.name = in.readString();
         this.path = in.readString();
-        this.firstImagePath = in.readString();
         this.imageNum = in.readInt();
         this.checkedNum = in.readInt();
         this.isChecked = in.readByte() != 0;

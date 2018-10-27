@@ -88,15 +88,15 @@ public class MediaLoader implements LoaderManager.LoaderCallbacks<ArrayList<Medi
         }
 
         FolderBean folderBean = new FolderBean();
-        folderBean.setFolderName("全部");
-        folderBean.setFileList(mediaBeanList);
+        folderBean.setName("全部");
+        folderBean.setMedias(mediaBeanList);
 
         ArrayList<FolderBean> folderList = new ArrayList<>();
         folderList.add(folderBean);
         for (Map.Entry<String, ArrayList<MediaBean>> entry : map.entrySet()) {
             folderBean = new FolderBean();
-            folderBean.setFolderName(entry.getKey());
-            folderBean.setFileList(entry.getValue());
+            folderBean.setName(entry.getKey());
+            folderBean.setMedias(entry.getValue());
             folderList.add(folderBean);
         }
         LogUtils.e("folder list size --> " + folderList.size());
