@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="toolbar" format="reference"/>
+    <attr name="listPopupWindowStyle" format="reference"/>
+    <attr name="listPopupWindow.element.color" format="reference"/>
+    <attr name="listPopupWindow.title.color" format="reference|color"/>
+    <attr name="listPopupWindow.count.color" format="reference|color"/>
+    <attr name="page.bg" format="reference|color"/>
+    <attr name="item.placeholder.bg" format="reference|color"/>
+    <attr name="photo.checked.style" format="reference"/>
+    <attr name="photo.arrow_down.icon" format="reference" />
+    <attr name="photo.arrow_up.icon" format="reference" />
+    <attr name="photo.folder_checked_dot" format="reference"/>
+</resources>
