@@ -40,14 +40,10 @@ public class CapturePhotoFragment extends Fragment {
 
     @BindView(R2.id.mCameraPhotoView)
     CameraView mCameraPhotoView;
-    @BindView(R2.id.mBtnTakePhoto)
-    ImageView mBtnTakePhoto;
     @BindView(R2.id.mShutter)
     View mShutter;
     @BindView(R2.id.mFlashPhoto)
     ImageView mFlashPhoto;
-    @BindView(R2.id.mSwitchCamera)
-    ImageView mSwitchCamera;
 
     private static final int[] FLASH_OPTIONS = {
             CameraView.FLASH_AUTO,
