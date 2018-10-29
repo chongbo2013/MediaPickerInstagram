@@ -18,7 +18,7 @@ import me.ningsk.videorecord.filters.GroupFilter;
 import me.ningsk.videorecord.filters.NoneFilter;
 import me.ningsk.videorecord.filters.ProcessFilter;
 import me.ningsk.videorecord.filters.gpuFilters.baseFilter.MagicBeautyFilter;
-import me.ningsk.videorecord.ui.SlideGpuFilterGroup;
+import me.ningsk.videorecord.internal.ui.SlideGpuFilterGroup;
 import me.ningsk.videorecord.utils.EasyGlUtils;
 import me.ningsk.videorecord.utils.MatrixUtils;
 

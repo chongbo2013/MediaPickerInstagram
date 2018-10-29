@@ -35,4 +35,8 @@
     <color name="middle_gray">#7f808080</color>
     <color name="color_454545">#454545</color> <!--灰色 -->
     <color name="FAE000">#FAE000</color>
+    <color name="dark_chocolate">#2E2B25</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="egg_shell">#EFEEED</color>
+    <color name="red_record">#CE0B24</color>
 </resources>

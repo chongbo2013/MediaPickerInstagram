@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.aserbao.androidcustomcamera.whole.record.ui.CameraView
+    <me.ningsk.videorecord.internal.ui.CameraView
         android:clickable="true"
         android:id="@+id/record_camera_view"
         android:layout_width="match_parent"

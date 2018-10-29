@@ -1,4 +1,4 @@
-package me.ningsk.videorecord.ui;
+package me.ningsk.videorecord.internal.ui;
 
 import android.opengl.GLES20;
 import android.view.MotionEvent;

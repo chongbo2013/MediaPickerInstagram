@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import me.ningsk.videorecord.R;
 import me.ningsk.videorecord.base.MyApplication;
-import me.ningsk.videorecord.ui.ThumbnailCountDownTimeView;
+import me.ningsk.videorecord.internal.ui.ThumbnailCountDownTimeView;
 
 public class PopupManager {
     private Context mContext;

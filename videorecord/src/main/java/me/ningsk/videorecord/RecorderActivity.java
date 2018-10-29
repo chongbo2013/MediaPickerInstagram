@@ -24,10 +24,10 @@ import me.ningsk.videorecord.base.activity.BaseActivity;
 import me.ningsk.videorecord.base.pop.PopupManager;
 import me.ningsk.videorecord.bean.MediaObject;
 import me.ningsk.videorecord.other.MagicFilterType;
-import me.ningsk.videorecord.ui.CameraView;
-import me.ningsk.videorecord.ui.FocusImageView;
-import me.ningsk.videorecord.ui.ProgressView;
-import me.ningsk.videorecord.ui.SlideGpuFilterGroup;
+import me.ningsk.videorecord.internal.ui.CameraView;
+import me.ningsk.videorecord.internal.ui.FocusImageView;
+import me.ningsk.videorecord.internal.ui.ProgressView;
+import me.ningsk.videorecord.internal.ui.SlideGpuFilterGroup;
 import me.ningsk.videorecord.utils.FileUtils;
 
 import static me.ningsk.videorecord.utils.StaticFinalValues.CHANGE_IMAGE;
