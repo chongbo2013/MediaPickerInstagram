@@ -55,28 +55,6 @@
             android:layout_marginRight="48dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/index_delete"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="回删"
-                    android:drawableTop="@drawable/bigicon_deletion"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:drawablePadding="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </LinearLayout>
-
-
-
         </FrameLayout>
         <ImageView
             android:id="@+id/btn_record_iv"
@@ -85,18 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
-        <TextView
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="53dp"
-            android:id="@+id/count_down_tv"
-            android:layout_marginLeft="54dp"
-            android:text="倒计时"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:drawableTop="@drawable/bigicon_countdown"
-            android:drawablePadding="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </FrameLayout>
     <LinearLayout
         android:layout_above="@+id/record_btn_ll"
@@ -118,26 +84,4 @@
             android:layout_marginLeft="20dp"
             android:src="@drawable/bigicon_filter" />
     </LinearLayout>
-    <com.aserbao.androidcustomcamera.whole.record.ui.ProgressView
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="6dp"
-        android:id="@+id/video_record_progress_view"
-        android:layout_width="match_parent"
-        android:layout_height="6dp" />
-    <com.aserbao.androidcustomcamera.whole.record.ui.FocusImageView
-        android:id="@+id/recorder_focus_iv"
-        android:layout_width="70dip"
-        android:layout_height="70dip"
-        android:visibility="invisible"
-        app:focus_fail_id="@drawable/focus_focus_failed"
-        app:focus_focusing_id="@drawable/focus_focusing"
-        app:focus_success_id="@drawable/focus_focused" />
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/count_time_down_iv"
-        android:layout_centerInParent="true"
-        android:src="@drawable/bigicon_timeout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 </RelativeLayout>
