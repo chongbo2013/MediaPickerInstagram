@@ -25,6 +25,18 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import me.ningsk.videorecord.camera.annotations.Antibanding;
+import me.ningsk.videorecord.camera.annotations.ColorEffect;
+import me.ningsk.videorecord.camera.annotations.Facing;
+import me.ningsk.videorecord.camera.annotations.FlashModel;
+import me.ningsk.videorecord.camera.annotations.FocusModel;
+import me.ningsk.videorecord.camera.annotations.PictureFormat;
+import me.ningsk.videorecord.camera.annotations.PreviewFormat;
+import me.ningsk.videorecord.camera.annotations.SceneModel;
+import me.ningsk.videorecord.camera.annotations.WhiteBalance;
+import me.ningsk.videorecord.util.Config;
+import me.ningsk.videorecord.util.LogUtil;
+
 import static android.view.Surface.ROTATION_270;
 import static android.view.Surface.ROTATION_90;
 

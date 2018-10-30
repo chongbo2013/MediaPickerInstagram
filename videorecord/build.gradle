@@ -45,5 +45,6 @@ dependencies {
         exclude module: 'support-annotations'
     }
     api rootProject.ext.dependencies["butterknife"]
+    api rootProject.ext.dependencies["mp4parser"]
     implementation files('libs/recorderlibrary.jar')
 }

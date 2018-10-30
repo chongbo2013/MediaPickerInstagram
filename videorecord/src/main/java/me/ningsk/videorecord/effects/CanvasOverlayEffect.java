@@ -12,6 +12,11 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import me.ningsk.videorecord.camera.Size;
+import me.ningsk.videorecord.gles.CoordinateTransform;
+import me.ningsk.videorecord.gles.GLUtil;
+
+import static me.ningsk.videorecord.gles.GLUtil.checkGlError;
+import static me.ningsk.videorecord.gles.GLUtil.checkLocation;
 
 /**
  * <p>描述：<p>

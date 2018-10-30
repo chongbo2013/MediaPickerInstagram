@@ -5,6 +5,7 @@ def espresso_version = '3.0.2'
 def glide_version = '4.7.1'
 def guiimage_version = '1.4.1'
 def butterknife = "8.5.1"
+def mp4parser = "1.1.21"
 project.ext {
 
     android = [
@@ -50,6 +51,9 @@ project.ext {
 
             // butterknife
             "butterknife"               : "com.jakewharton:butterknife:${butterknife}",
+
+            // mp4parser
+            "mp4parser": "com.googlecode.mp4parser:isoparser:${mp4parser}",
 
             //mock
             "mockito-kotlin"             : "com.nhaarman:mockito-kotlin-kt1.1:1.5.0",
