@@ -3,9 +3,9 @@
     package="me.ningsk.videorecord">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <application
-        android:name=".base.MyApplication">
-        <activity android:name=".RecordActivity"></activity>
+
+    <application>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

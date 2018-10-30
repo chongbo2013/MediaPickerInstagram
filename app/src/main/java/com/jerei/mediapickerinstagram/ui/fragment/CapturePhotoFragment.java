@@ -1,4 +1,4 @@
-package me.ningsk.videorecord;
+package com.jerei.mediapickerinstagram.ui.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -19,6 +19,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
+import com.jerei.mediapickerinstagram.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,13 +38,13 @@ public class CapturePhotoFragment extends Fragment {
 
     private static final Interpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
     private static final Interpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
-    private static final String DIR_YUMMYPETS = "/yummypets";
 
-    @BindView(R2.id.mCameraPhotoView)
+
+    @BindView(R.id.mCameraPhotoView)
     CameraView mCameraPhotoView;
-    @BindView(R2.id.mShutter)
+    @BindView(R.id.mShutter)
     View mShutter;
-    @BindView(R2.id.mFlashPhoto)
+    @BindView(R.id.mFlashPhoto)
     ImageView mFlashPhoto;
 
     private static final int[] FLASH_OPTIONS = {
@@ -60,13 +62,13 @@ public class CapturePhotoFragment extends Fragment {
     private int mCurrentFlash;
     private Handler mBackgroundHandler;
 
-    @OnClick(R2.id.mBtnTakePhoto)
+    @OnClick(R.id.mBtnTakePhoto)
     void onTakePhotoClick() {
         mCameraPhotoView.takePicture();
         animateShutter();
     }
 
-    @OnClick(R2.id.mSwitchCamera)
+    @OnClick(R.id.mSwitchCamera)
     void onSwitchCamera() {
         if (mCameraPhotoView != null) {
             int facing = mCameraPhotoView.getFacing();
@@ -75,7 +77,7 @@ public class CapturePhotoFragment extends Fragment {
         }
     }
 
-    @OnClick(R2.id.mFlashPhoto)
+    @OnClick(R.id.mFlashPhoto)
     void onChangeFlashState() {
         if (mCameraPhotoView != null) {
             mCurrentFlash = (mCurrentFlash + 1) % FLASH_OPTIONS.length;
@@ -147,11 +149,9 @@ public class CapturePhotoFragment extends Fragment {
             getBackgroundHandler().post(new Runnable() {
                 @Override
                 public void run() {
-                    File dirDest =
-                            new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                                    DIR_YUMMYPETS);
+                    File dirDest   =  getContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES);
                     File file;
-                    String fileName = "yummypets_"+
+                    String fileName =
                             TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) +".jpg";
                     if (dirDest.exists()) {
                         Log.d(TAG, "exists " + dirDest.getAbsolutePath());

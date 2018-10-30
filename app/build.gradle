@@ -16,6 +16,7 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk { abiFilters "armeabi", "x86" }
+        vectorDrawables.useSupportLibrary = true
 
         javaCompileOptions {
             // 显式声明支持注解
@@ -54,4 +55,5 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':photoselector')
+    implementation project(':videorecord')
 }
