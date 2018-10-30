@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MediaPickerInstagram.iml" filepath="$PROJECT_DIR$/MediaPickerInstagram.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" filepath="$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoselector/photoselector.iml" filepath="$PROJECT_DIR$/photoselector/photoselector.iml" />
-      <module fileurl="file://$PROJECT_DIR$/smallvideo/smallvideo.iml" filepath="$PROJECT_DIR$/smallvideo/smallvideo.iml" />
       <module fileurl="file://$PROJECT_DIR$/videoedit/videoedit.iml" filepath="$PROJECT_DIR$/videoedit/videoedit.iml" />
       <module fileurl="file://$PROJECT_DIR$/videofilter/videofilter.iml" filepath="$PROJECT_DIR$/videofilter/videofilter.iml" />
       <module fileurl="file://$PROJECT_DIR$/videoplayer/videoplayer.iml" filepath="$PROJECT_DIR$/videoplayer/videoplayer.iml" />
