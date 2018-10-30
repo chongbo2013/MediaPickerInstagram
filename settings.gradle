@@ -1,1 +1,1 @@
-include ':app', ':videoedit',  ':videorecord', ':photoselector', ':videoplayer', ':videofilter', ':landmarklibrary', ':ffmpeglibrary'
+include ':app', ':videoedit',  ':videorecord', ':photoselector', ':videoplayer', ':videofilter', ':landmarklibrary', ':ffmpeglibrary', ':cameralibrary', ':baselibrary'
