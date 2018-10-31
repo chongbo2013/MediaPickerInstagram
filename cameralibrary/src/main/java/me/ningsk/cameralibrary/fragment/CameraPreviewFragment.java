@@ -30,14 +30,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import me.ningsk.baselibrary.fragment.PermissionConfirmDialogFragment;
 import me.ningsk.baselibrary.fragment.PermissionErrorDialogFragment;
+import me.ningsk.baselibrary.utils.BitmapUtils;
+import me.ningsk.baselibrary.utils.BrightnessUtils;
 import me.ningsk.baselibrary.utils.PermissionUtils;
 import me.ningsk.cameralibrary.R;
+import me.ningsk.cameralibrary.engine.camera.CameraEngine;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
+import me.ningsk.cameralibrary.engine.listener.OnCameraCallback;
+import me.ningsk.cameralibrary.engine.listener.OnCaptureListener;
+import me.ningsk.cameralibrary.engine.listener.OnFpsListener;
+import me.ningsk.cameralibrary.engine.listener.OnRecordListener;
+import me.ningsk.cameralibrary.engine.model.AspectRatio;
+import me.ningsk.cameralibrary.engine.model.GalleryType;
 import me.ningsk.cameralibrary.engine.render.PreviewRecorder;
+import me.ningsk.cameralibrary.engine.render.PreviewRenderer;
 import me.ningsk.cameralibrary.listener.OnPageOperationListener;
+import me.ningsk.cameralibrary.utils.PathConstraints;
+import me.ningsk.cameralibrary.utils.StringUtils;
 import me.ningsk.cameralibrary.widget.AspectFrameLayout;
 import me.ningsk.cameralibrary.widget.HorizontalIndicatorView;
+import me.ningsk.cameralibrary.widget.JRSurfaceView;
+import me.ningsk.cameralibrary.widget.PopupSettingView;
+import me.ningsk.cameralibrary.widget.RatioImageView;
+import me.ningsk.cameralibrary.widget.ShutterButton;
+import me.ningsk.facedetectlibrary.FaceTracker;
+import me.ningsk.landmark.LandmarkEngine;
+import me.ningsk.listener.FaceTrackerCallback;
+import me.ningsk.videofilter.glfilter.GLImageFilterManager;
+import me.ningsk.videofilter.multimedia.VideoCombiner;
 
 /**
  * <p>描述：相机预览界面<p>
@@ -177,7 +199,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
     private void initView(View view) {
         mAspectLayout = (AspectFrameLayout) view.findViewById(R.id.layout_aspect);
         mAspectLayout.setAspectRatio(mCameraParam.currentRatio);
-        mCameraSurfaceView = new CainSurfaceView(mActivity);
+        mCameraSurfaceView = new JRSurfaceView(mActivity);
         mCameraSurfaceView.addOnTouchScroller(mTouchScroller);
         mCameraSurfaceView.addMultiClickListener(mMultiClickListener);
         mAspectLayout.addView(mCameraSurfaceView);
@@ -524,7 +546,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
 
     // ------------------------------- SurfaceView 滑动、点击回调 ----------------------------------
-    private CainSurfaceView.OnTouchScroller mTouchScroller = new CainSurfaceView.OnTouchScroller() {
+    private JRSurfaceView.OnTouchScroller mTouchScroller = new JRSurfaceView.OnTouchScroller() {
 
         @Override
         public void swipeBack() {
@@ -577,7 +599,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
     /**
      * 单双击回调监听
      */
-    private CainSurfaceView.OnMultiClickListener mMultiClickListener = new CainSurfaceView.OnMultiClickListener() {
+    private JRSurfaceView.OnMultiClickListener mMultiClickListener = new JRSurfaceView.OnMultiClickListener() {
 
         @Override
         public void onSurfaceSingleClick(final float x, final float y) {

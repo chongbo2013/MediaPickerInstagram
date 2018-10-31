@@ -13,6 +13,7 @@ import me.ningsk.cameralibrary.engine.recorder.HardcodeEncoder;
 import me.ningsk.cameralibrary.engine.recorder.RecordItem;
 import me.ningsk.cameralibrary.engine.recorder.RecordTimer;
 import me.ningsk.cameralibrary.utils.FileUtils;
+import me.ningsk.cameralibrary.utils.StringUtils;
 import me.ningsk.videofilter.multimedia.MediaEncoder;
 import me.ningsk.videofilter.multimedia.VideoCombiner;
 

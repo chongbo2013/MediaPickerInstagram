@@ -12,6 +12,7 @@ import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.model.GalleryType;
 import me.ningsk.cameralibrary.fragment.CameraPreviewFragment;
 import me.ningsk.cameralibrary.listener.OnPageOperationListener;
+import me.ningsk.facedetectlibrary.FaceTracker;
 
 /**
  * <p>描述：相机预览界面<p>

@@ -6,12 +6,13 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/cameralibrary/cameralibrary.iml" filepath="$PROJECT_DIR$/cameralibrary/cameralibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/facedetectlibrary/facedetectlibrary.iml" filepath="$PROJECT_DIR$/facedetectlibrary/facedetectlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/ffmpeglibrary/ffmpeglibrary.iml" filepath="$PROJECT_DIR$/ffmpeglibrary/ffmpeglibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" filepath="$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoselector/photoselector.iml" filepath="$PROJECT_DIR$/photoselector/photoselector.iml" />
       <module fileurl="file://$PROJECT_DIR$/videoedit/videoedit.iml" filepath="$PROJECT_DIR$/videoedit/videoedit.iml" />
       <module fileurl="file://$PROJECT_DIR$/videofilter/videofilter.iml" filepath="$PROJECT_DIR$/videofilter/videofilter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/videoplayer/videoplayer.iml" filepath="$PROJECT_DIR$/videoplayer/videoplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/videolibrary/videolibrary.iml" filepath="$PROJECT_DIR$/videolibrary/videolibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/videorecord/videorecord.iml" filepath="$PROJECT_DIR$/videorecord/videorecord.iml" />
     </modules>
   </component>
