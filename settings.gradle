@@ -1,1 +1,1 @@
-include ':app',  ':photoselector', ':filterlibrary', ':landmarklibrary', ':ffmpeglibrary', ':cameralibrary', ':baselibrary', ':facedetectlibrary', ':videolibrary', ':imagelibrary', ':croplibrary'
+include ':app', ':mediascanlibrary', ':filterlibrary', ':landmarklibrary', ':ffmpeglibrary', ':cameralibrary', ':baselibrary', ':facedetectlibrary', ':videolibrary', ':imagelibrary', ':croplibrary'

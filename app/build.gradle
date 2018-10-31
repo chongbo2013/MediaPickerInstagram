@@ -72,8 +72,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':baselibrary')
-    implementation project(':photoselector')
+    implementation project(':mediascanlibrary')
     implementation project(':cameralibrary')
     implementation project(':videolibrary')
-    implementation project(":imagelibrary");
+    implementation project(":imagelibrary")
 }

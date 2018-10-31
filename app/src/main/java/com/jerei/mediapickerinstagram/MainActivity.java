@@ -2,23 +2,19 @@ package com.jerei.mediapickerinstagram;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import java.util.List;
 
 import me.ningsk.baselibrary.utils.PermissionUtils;
 import me.ningsk.cameralibrary.engine.PreviewEngine;
-import me.ningsk.cameralibrary.engine.listener.OnCaptureListener;
 import me.ningsk.cameralibrary.engine.model.AspectRatio;
 import me.ningsk.cameralibrary.engine.model.GalleryType;
 import me.ningsk.cameralibrary.listener.OnGallerySelectedListener;
 import me.ningsk.cameralibrary.listener.OnPreviewCaptureListener;
 import me.ningsk.imagelibrary.activity.ImageEditActivity;
-import me.ningsk.photoselector.MimeType;
 import me.ningsk.videolibrary.activity.VideoEditActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -79,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void previewCamera() {
         PreviewEngine.from(this)
-                .setCameraRatio(AspectRatio.RATIO_16_9)
+                .setCameraRatio(AspectRatio.RATIO_1_1)
                 .showFacePoints(false)
-                .showFps(true)
+                .showFps(false)
                 .setGalleryListener(new OnGallerySelectedListener() {
                     @Override
                     public void onGalleryClickListener(GalleryType type) {
@@ -109,32 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 扫描媒体库
      */
     private void scanMedia(boolean enableGif) {
-//        MediaScanEngine.from(this)
-//                .setMimeTypes(MimeType.ofAll())
-//                .ImageLoader(new GlideMediaLoader())
-//                .spanCount(4)
-//                .showCapture(true)
-//                .enableSelectGif(enableGif)
-//                .setCaptureListener(new OnCaptureListener() {
-//                    @Override
-//                    public void onCapture() {
-//                        previewCamera();
-//                    }
-//                })
-//                .setMediaSelectedListener(new OnMediaSelectedListener() {
-//                    @Override
-//                    public void onSelected(List<Uri> uriList, List<String> pathList, boolean isVideo) {
-//                        if (isVideo) {
-//                            Intent intent = new Intent(MainActivity.this, VideoEditActivity.class);
-//                            intent.putExtra(VideoEditActivity.PATH, pathList.get(0));
-//                            startActivity(intent);
-//                        } else {
-//                            Intent intent = new Intent(MainActivity.this, ImageEditActivity.class);
-//                            intent.putExtra(ImageEditActivity.PATH, pathList.get(0));
-//                            startActivity(intent);
-//                        }
-//                    }
-//                })
-//                .scanMedia();
+
     }
 }
