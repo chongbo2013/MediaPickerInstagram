@@ -15,7 +15,14 @@ android {
         versionName rootProject.ext.android.versionName
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk { abiFilters "armeabi", "x86" }
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11"
+            }
+            ndk {
+                abiFilters "armeabi-v7a"
+            }
+        }
         vectorDrawables.useSupportLibrary = true
 
         javaCompileOptions {
@@ -39,7 +46,10 @@ android {
         jniLibs.srcDirs = ['src/main/jniLibs'];
     }
 
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     dexOptions {
         javaMaxHeapSize "4g"
@@ -50,10 +60,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    repositories {
+        flatDir {
+            // 人脸关键点检测依赖库下放到facedetectlibrary
+            dirs project(':facedetectlibrary').file('libs')
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':baselibrary')
     implementation project(':photoselector')
-    implementation project(':videorecord')
+    implementation project(':cameralibrary')
+    implementation project(':videolibrary')
+    implementation project(":imagelibrary");
 }

@@ -44,7 +44,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.cgfay.videolibrary.widget.IndicatorProgress
+    <me.ningsk.videolibrary.widget.IndicatorProgress
         android:id="@+id/indicator_progress"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/dp10"
