@@ -19,4 +19,7 @@
     <color name="transparent_white">#F0FFFFFF</color>
     <color name="transparent_db">#E0DBDBDB</color>
     <color name="line_color">#EEEEEE</color>
+    <color name="tab_color_true">#FA632D</color>
+    <color name="tab_color_false">#9b9b9b</color>
+    <color name="color_orange">#E0FF6100</color>
 </resources>

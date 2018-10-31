@@ -15,6 +15,9 @@ import me.ningsk.cameralibrary.engine.model.GalleryType;
 import me.ningsk.cameralibrary.listener.OnGallerySelectedListener;
 import me.ningsk.cameralibrary.listener.OnPreviewCaptureListener;
 import me.ningsk.imagelibrary.activity.ImageEditActivity;
+import me.ningsk.mediascanlibrary.config.MimeType;
+import me.ningsk.mediascanlibrary.config.PhotoSelectorConfig;
+import me.ningsk.mediascanlibrary.engine.MediaScanEngine;
 import me.ningsk.videolibrary.activity.VideoEditActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -105,6 +108,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 扫描媒体库
      */
     private void scanMedia(boolean enableGif) {
-
+        MediaScanEngine.from(this)
+                .openGallery(MimeType.ALL)
+                .theme(me.ningsk.mediascanlibrary.R.style.photo_ins_style)
+                .maxSelectNum(8)// 最大图片选择数量 int
+                .minSelectNum(1)// 最小选择数量 int
+                .selectionMode(PhotoSelectorConfig.MULTIPLE)
+                .forResult(PhotoSelectorConfig.CHOOSE_REQUEST);
     }
 }

@@ -32,7 +32,6 @@ import me.ningsk.mediascanlibrary.widget.FolderPopupWindow;
 
 public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoader.MediaCallBack,View.OnClickListener,
         MediaAdapter.OnPhotoSelectChangedListener,FolderAdapter.OnItemClickListener {
-    private final static String TAG = PhotoSelectorActivity.class.getSimpleName();
     private final MediaLoader mMediaLoader = new MediaLoader();
     private RecyclerView mRvList;
     private MediaAdapter mMediaAdapter;
@@ -42,7 +41,7 @@ public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoa
     private RxPermissions rxPermissions;
     private TextView photoTitle;
     private TextView photoRight;
-    private ImageView photoLeft;
+    private TextView photoLeft;
     private DataTransferStation mDataTransferStation;
     private RelativeLayout rlPhotoTitle;
     // 是否重新加载媒体库
