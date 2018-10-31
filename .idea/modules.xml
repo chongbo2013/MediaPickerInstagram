@@ -11,7 +11,6 @@
       <module fileurl="file://$PROJECT_DIR$/filterlibrary/filterlibrary.iml" filepath="$PROJECT_DIR$/filterlibrary/filterlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" filepath="$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoselector/photoselector.iml" filepath="$PROJECT_DIR$/photoselector/photoselector.iml" />
-      <module fileurl="file://$PROJECT_DIR$/videoedit/videoedit.iml" filepath="$PROJECT_DIR$/videoedit/videoedit.iml" />
       <module fileurl="file://$PROJECT_DIR$/videolibrary/videolibrary.iml" filepath="$PROJECT_DIR$/videolibrary/videolibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/videorecord/videorecord.iml" filepath="$PROJECT_DIR$/videorecord/videorecord.iml" />
     </modules>
