@@ -14,10 +14,10 @@ import me.ningsk.cameralibrary.engine.camera.CameraEngine;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.recorder.HardcodeEncoder;
 import me.ningsk.cameralibrary.engine.render.RenderHandler;
-import me.ningsk.videofilter.gles.EglCore;
-import me.ningsk.videofilter.gles.WindowSurface;
-import me.ningsk.videofilter.glfilter.utils.GLImageFilterType;
-import me.ningsk.videofilter.glfilter.utils.OpenGLUtils;
+import me.ningsk.filterlibrary.gles.EglCore;
+import me.ningsk.filterlibrary.gles.WindowSurface;
+import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.utils.OpenGLUtils;
 
 /**
  * <p>描述：渲染线程<p>

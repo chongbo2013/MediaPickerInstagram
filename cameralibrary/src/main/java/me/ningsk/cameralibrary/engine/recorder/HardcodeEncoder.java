@@ -13,13 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-import me.ningsk.videofilter.gles.EglCore;
-import me.ningsk.videofilter.gles.WindowSurface;
-import me.ningsk.videofilter.glfilter.base.GLImageFilter;
-import me.ningsk.videofilter.multimedia.MediaAudioEncoder;
-import me.ningsk.videofilter.multimedia.MediaEncoder;
-import me.ningsk.videofilter.multimedia.MediaMuxerWrapper;
-import me.ningsk.videofilter.multimedia.MediaVideoEncoder;
+import me.ningsk.filterlibrary.gles.EglCore;
+import me.ningsk.filterlibrary.gles.WindowSurface;
+import me.ningsk.filterlibrary.glfilter.base.GLImageFilter;
+import me.ningsk.filterlibrary.multimedia.MediaAudioEncoder;
+import me.ningsk.filterlibrary.multimedia.MediaEncoder;
+import me.ningsk.filterlibrary.multimedia.MediaMuxerWrapper;
+import me.ningsk.filterlibrary.multimedia.MediaVideoEncoder;
 
 /**
  * <p>描述：硬编码录制器<p>

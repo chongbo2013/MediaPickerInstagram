@@ -10,19 +10,19 @@ import java.nio.FloatBuffer;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.model.ScaleType;
 import me.ningsk.landmark.LandmarkEngine;
-import me.ningsk.videofilter.glfilter.GLImageFilterManager;
-import me.ningsk.videofilter.glfilter.advanced.GLImageDepthBlurFilter;
-import me.ningsk.videofilter.glfilter.advanced.GLImageOESInputFilter;
-import me.ningsk.videofilter.glfilter.advanced.GLImageVignetteFilter;
-import me.ningsk.videofilter.glfilter.advanced.beauty.GLImageRealTimeBeautyFilter;
-import me.ningsk.videofilter.glfilter.advanced.face.GLImageFaceAdjustFilter;
-import me.ningsk.videofilter.glfilter.advanced.face.GLImageFacePointsFilter;
-import me.ningsk.videofilter.glfilter.advanced.makeup.GLImageMakeupFilter;
-import me.ningsk.videofilter.glfilter.advanced.sticker.GLImageStickerFilter;
-import me.ningsk.videofilter.glfilter.base.GLImageFilter;
-import me.ningsk.videofilter.glfilter.model.IBeautify;
-import me.ningsk.videofilter.glfilter.utils.GLImageFilterType;
-import me.ningsk.videofilter.glfilter.utils.TextureRotationUtils;
+import me.ningsk.filterlibrary.glfilter.GLImageFilterManager;
+import me.ningsk.filterlibrary.glfilter.advanced.GLImageDepthBlurFilter;
+import me.ningsk.filterlibrary.glfilter.advanced.GLImageOESInputFilter;
+import me.ningsk.filterlibrary.glfilter.advanced.GLImageVignetteFilter;
+import me.ningsk.filterlibrary.glfilter.advanced.beauty.GLImageRealTimeBeautyFilter;
+import me.ningsk.filterlibrary.glfilter.advanced.face.GLImageFaceAdjustFilter;
+import me.ningsk.filterlibrary.glfilter.advanced.face.GLImageFacePointsFilter;
+import me.ningsk.filterlibrary.glfilter.advanced.makeup.GLImageMakeupFilter;
+import me.ningsk.filterlibrary.glfilter.advanced.sticker.GLImageStickerFilter;
+import me.ningsk.filterlibrary.glfilter.base.GLImageFilter;
+import me.ningsk.filterlibrary.glfilter.model.IBeautify;
+import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.utils.TextureRotationUtils;
 
 /**
  * <p>描述：渲染管理器<p>

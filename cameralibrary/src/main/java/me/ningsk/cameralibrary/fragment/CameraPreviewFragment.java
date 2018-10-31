@@ -58,8 +58,8 @@ import me.ningsk.cameralibrary.widget.ShutterButton;
 import me.ningsk.facedetectlibrary.FaceTracker;
 import me.ningsk.landmark.LandmarkEngine;
 import me.ningsk.listener.FaceTrackerCallback;
-import me.ningsk.videofilter.glfilter.GLImageFilterManager;
-import me.ningsk.videofilter.multimedia.VideoCombiner;
+import me.ningsk.filterlibrary.glfilter.GLImageFilterManager;
+import me.ningsk.filterlibrary.multimedia.VideoCombiner;
 
 /**
  * <p>描述：相机预览界面<p>

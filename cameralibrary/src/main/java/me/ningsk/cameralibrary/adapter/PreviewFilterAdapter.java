@@ -14,8 +14,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.ningsk.cameralibrary.R;
-import me.ningsk.videofilter.glfilter.utils.GLImageFilterType;
-import me.ningsk.videofilter.utils.BitmapUtils;
+import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.utils.BitmapUtils;
 
 /**
  * <p>描述：滤镜列表适配器<p>

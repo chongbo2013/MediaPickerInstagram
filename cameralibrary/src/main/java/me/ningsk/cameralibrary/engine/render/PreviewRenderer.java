@@ -8,7 +8,7 @@ import java.lang.ref.WeakReference;
 
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.listener.OnCameraCallback;
-import me.ningsk.videofilter.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
 
 /**
  * <p>描述：预览渲染器<p>

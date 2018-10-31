@@ -14,8 +14,8 @@ import me.ningsk.cameralibrary.engine.recorder.RecordItem;
 import me.ningsk.cameralibrary.engine.recorder.RecordTimer;
 import me.ningsk.cameralibrary.utils.FileUtils;
 import me.ningsk.cameralibrary.utils.StringUtils;
-import me.ningsk.videofilter.multimedia.MediaEncoder;
-import me.ningsk.videofilter.multimedia.VideoCombiner;
+import me.ningsk.filterlibrary.multimedia.MediaEncoder;
+import me.ningsk.filterlibrary.multimedia.VideoCombiner;
 
 /**
  * <p>描述：预览录制器<p>

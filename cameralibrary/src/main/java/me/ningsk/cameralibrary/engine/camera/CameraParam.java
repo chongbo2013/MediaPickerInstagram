@@ -9,8 +9,8 @@ import me.ningsk.cameralibrary.engine.model.AspectRatio;
 import me.ningsk.cameralibrary.engine.model.GalleryType;
 import me.ningsk.cameralibrary.listener.OnGallerySelectedListener;
 import me.ningsk.cameralibrary.listener.OnPreviewCaptureListener;
-import me.ningsk.videofilter.glfilter.model.Beauty;
-import me.ningsk.videofilter.glfilter.model.Makeup;
+import me.ningsk.filterlibrary.glfilter.model.Beauty;
+import me.ningsk.filterlibrary.glfilter.model.Makeup;
 
 /**
  * <p>描述：相机配置参数<p>

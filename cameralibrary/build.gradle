@@ -35,7 +35,7 @@ dependencies {
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["support-annotations"]
     api rootProject.ext.dependencies["recyclerview-v7"]
-    implementation project(':videofilter')
+    implementation project(':filterlibrary')
     implementation project(':landmarklibrary')
     implementation project(":baselibrary")
     implementation project(":facedetectlibrary")

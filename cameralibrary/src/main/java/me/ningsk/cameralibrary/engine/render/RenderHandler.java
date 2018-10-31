@@ -6,7 +6,7 @@ import android.view.SurfaceHolder;
 
 import java.lang.ref.WeakReference;
 
-import me.ningsk.videofilter.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
 
 
 /**

@@ -25,8 +25,8 @@ import me.ningsk.cameralibrary.adapter.PreviewFilterAdapter;
 import me.ningsk.cameralibrary.adapter.PreviewMakeupAdapter;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.render.PreviewRenderer;
-import me.ningsk.videofilter.glfilter.GLImageFilterManager;
-import me.ningsk.videofilter.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.GLImageFilterManager;
+import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
 
 /**
  * <p>描述：特效选择界面<p>
