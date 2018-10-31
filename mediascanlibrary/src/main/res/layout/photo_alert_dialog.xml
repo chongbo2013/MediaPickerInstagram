@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:padding="15dp">
 
-    <me.ningsk.photoselector.dialog.PhotoSpinView
+    <me.ningsk.mediascanlibrary.dialog.PhotoSpinView
         android:layout_width="30dp"
         android:layout_height="30dp" />
 
