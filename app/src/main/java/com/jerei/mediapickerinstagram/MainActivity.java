@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             case R.id.btn_edit: {
-                scanMedia(false);
+                scanMedia();
                 break;
             }
         }
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setGalleryListener(new OnGallerySelectedListener() {
                     @Override
                     public void onGalleryClickListener(GalleryType type) {
-                        scanMedia(type == GalleryType.ALL);
+                        scanMedia();
                     }
                 })
                 .setPreviewCaptureListener(new OnPreviewCaptureListener() {
@@ -107,10 +107,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 扫描媒体库
      */
-    private void scanMedia(boolean enableGif) {
+    private void scanMedia() {
         MediaScanEngine.from(this)
                 .openGallery(MimeType.ALL)
                 .theme(me.ningsk.mediascanlibrary.R.style.photo_ins_style)
+                .imageSpanCount(4)
                 .maxSelectNum(8)// 最大图片选择数量 int
                 .minSelectNum(1)// 最小选择数量 int
                 .selectionMode(PhotoSelectorConfig.MULTIPLE)
