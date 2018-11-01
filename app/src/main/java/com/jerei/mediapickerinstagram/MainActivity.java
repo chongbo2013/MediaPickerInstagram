@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mBtnCamera = (Button) findViewById(R.id.btn_camera);
+        mBtnCamera = findViewById(R.id.btn_camera);
         mBtnCamera.setOnClickListener(this);
-        mBtnEdit = (Button) findViewById(R.id.btn_edit);
+        mBtnEdit = findViewById(R.id.btn_edit);
         mBtnEdit.setOnClickListener(this);
     }
 
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .maxSelectNum(8)// 最大图片选择数量 int
                 .minSelectNum(1)// 最小选择数量 int
                 .selectionMode(PhotoSelectorConfig.MULTIPLE)
+                .isZoomAnim(false)
                 .forResult(PhotoSelectorConfig.CHOOSE_REQUEST);
     }
 }

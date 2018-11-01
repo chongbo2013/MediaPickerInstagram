@@ -14,7 +14,7 @@
     <color name="divider">#B6B6B6</color>
     <color name="color_c51">#f94c51</color>
     <color name="color_green">#43c117</color>
-    <color name="image_overlay_true">#80000000</color>
+    <color name="image_overlay_true">#AAFFFFFF</color>
     <color name="image_overlay_false">#20000000</color>
     <color name="transparent_white">#F0FFFFFF</color>
     <color name="transparent_db">#E0DBDBDB</color>

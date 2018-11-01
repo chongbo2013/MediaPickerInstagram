@@ -44,12 +44,11 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private int maxSelectNum;
     private List<LocalMedia> images = new ArrayList<LocalMedia>();
     private List<LocalMedia> selectImages = new ArrayList<LocalMedia>();
-    private int selectMode = PhotoSelectorConfig.MULTIPLE;
+    private int selectMode;
     private int overrideWidth, overrideHeight;
     private float sizeMultiplier;
     private Animation animation;
     private SelectionOptions options;
-    private int mimeType;
     private boolean zoomAnim;
     /**
      * 单选图片
@@ -64,7 +63,6 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.overrideWidth = options.overrideWidth;
         this.overrideHeight = options.overrideHeight;
         this.sizeMultiplier = options.sizeMultiplier;
-        this.mimeType = options.mimeType;
         this.zoomAnim = options.zoomAnim;
         animation = OptAnimationLoader.loadAnimation(context, R.anim.modal_in);
     }
@@ -154,10 +152,18 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     if (false) {
                         imageSelectChangedListener.onPictureClick(image, index);
                     } else {
+                        // 如果是单选，并且已经被选中，禁止取消
+                        if (selectMode == PhotoSelectorConfig.SINGLE && contentHolder.check.isSelected()) {
+                            return;
+                        }
                         changeCheckboxState(contentHolder, image);
                     }
                 }
             });
+        if (selectMode == PhotoSelectorConfig.SINGLE) {
+            ((ViewHolder) holder).check.setVisibility(View.GONE);
+        }
+
     }
 
 
@@ -221,7 +227,7 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         int mediaMimeType = selectImages.size() > 0 ? selectImages.get(0).getMediaMimeType() : MimeType.OTHER;
         if (mediaMimeType != MimeType.OTHER) {
             boolean toEqual = (image.getMediaMimeType() == mediaMimeType);
-            if (!toEqual) {
+            if (!toEqual && selectMode == PhotoSelectorConfig.MULTIPLE) {
                 ToastManage.s(context, context.getString(R.string.photo_ruler));
                 return;
             }

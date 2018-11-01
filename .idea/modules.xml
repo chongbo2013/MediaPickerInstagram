@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/cameralibrary/cameralibrary.iml" filepath="$PROJECT_DIR$/cameralibrary/cameralibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/croplibrary/croplibrary.iml" filepath="$PROJECT_DIR$/croplibrary/croplibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/facedetectlibrary/facedetectlibrary.iml" filepath="$PROJECT_DIR$/facedetectlibrary/facedetectlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/ffmpeglibrary/ffmpeglibrary.iml" filepath="$PROJECT_DIR$/ffmpeglibrary/ffmpeglibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/filterlibrary/filterlibrary.iml" filepath="$PROJECT_DIR$/filterlibrary/filterlibrary.iml" />
