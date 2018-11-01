@@ -38,10 +38,6 @@ public class MediaLoader implements LoaderManager.LoaderCallbacks<ArrayList<Loca
         mLoaderManager.initLoader(LOADER_ID, null, this);
     }
 
-    public void restartLoadMedia() {
-        mLoaderManager.restartLoader(LOADER_ID, null, this);
-    }
-
     @Override
     public Loader<ArrayList<LocalMedia>> onCreateLoader(int id, Bundle args) {
         Context context = mContext.get();
