@@ -131,7 +131,7 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         mFolderWindow.setOnItemClickListener(this);
         mRvList.setHasFixedSize(true);
         mRvList.addItemDecoration(new GridSpacingItemDecoration(mOptions.gridSize,
-                ScreenUtils.dip2px(mContext, 2), false));
+                ScreenUtils.dip2px(mContext, 1), false));
         mRvList.setLayoutManager(new GridLayoutManager(mContext, mOptions.gridSize));
         mMediaAdapter = new MediaAdapter(mContext, mOptions);
         mRvList.setAdapter(mMediaAdapter);
