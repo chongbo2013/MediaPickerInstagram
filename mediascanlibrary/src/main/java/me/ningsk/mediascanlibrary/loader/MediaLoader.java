@@ -90,6 +90,7 @@ public class MediaLoader implements LoaderManager.LoaderCallbacks<ArrayList<Loca
 
         LocalMediaFolder folderBean = new LocalMediaFolder();
         folderBean.setName("全部");
+        folderBean.setImageNum(localMediaList.size());
         folderBean.setMedias(localMediaList);
 
         ArrayList<LocalMediaFolder> folderList = new ArrayList<>();
