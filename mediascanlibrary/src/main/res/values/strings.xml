@@ -3,7 +3,8 @@
     <string name="photo_long_chart">长图</string>
     <string name="gif_tag">动图</string>
     <string name="photo_ruler">暂时只支持选择多张图片</string>
-    <string name="photo_message_video_max_num">最多选择%1d张图片</string>
+    <string name="photo_message_max_num">最多选择%1d张图片</string>
+    <string name="photo_message_min_num">最少选择%1d张图片</string>
     <string name="photo_error">图片已损坏</string>
     <string name="photo_video_error">视频已损坏</string>
     <string name="photo_camera_roll">相机胶卷</string>

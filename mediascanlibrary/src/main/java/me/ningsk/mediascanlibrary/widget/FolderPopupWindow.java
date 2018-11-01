@@ -43,7 +43,7 @@ public class FolderPopupWindow extends PopupWindow implements View.OnClickListen
     private TextView tvTitle;
     private Drawable drawableUp, drawableDown;
 
-    public FolderPopupWindow(Context context, int mediaMimeType) {
+    public FolderPopupWindow(Context context) {
         this.mContext = context;
         window = LayoutInflater.from(mContext).inflate(R.layout.photo_window_folder, null);
         this.setContentView(window);
@@ -111,7 +111,6 @@ public class FolderPopupWindow extends PopupWindow implements View.OnClickListen
         StringUtils.modifyTextViewDrawable(tvTitle, drawableDown, 2);
         isDismiss = true;
         recyclerView.startAnimation(animationOut);
-        dismiss();
         animationOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -124,7 +123,7 @@ public class FolderPopupWindow extends PopupWindow implements View.OnClickListen
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
                     dismiss4Pop();
                 } else {
-                    dismiss();
+                    FolderPopupWindow.super.dismiss();
                 }
             }
 

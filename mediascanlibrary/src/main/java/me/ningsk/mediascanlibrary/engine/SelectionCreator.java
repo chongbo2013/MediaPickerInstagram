@@ -42,7 +42,7 @@ public final class SelectionCreator {
      * @return
      */
     public SelectionCreator selectionMode(int selectionMode) {
-        mOptions.mimeType = selectionMode;
+        mOptions.selectionMode = selectionMode;
         return this;
     }
 

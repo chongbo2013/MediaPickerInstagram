@@ -30,8 +30,7 @@ import me.ningsk.mediascanlibrary.utils.ScreenUtils;
 import me.ningsk.mediascanlibrary.utils.ToastManage;
 import me.ningsk.mediascanlibrary.widget.FolderPopupWindow;
 
-public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoader.MediaCallBack,View.OnClickListener,
-        MediaAdapter.OnPhotoSelectChangedListener,FolderAdapter.OnItemClickListener {
+public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoader.MediaCallBack,View.OnClickListener,FolderAdapter.OnItemClickListener {
     private final MediaLoader mMediaLoader = new MediaLoader();
     private RecyclerView mRvList;
     private MediaAdapter mMediaAdapter;
@@ -42,10 +41,8 @@ public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoa
     private TextView photoTitle;
     private TextView photoRight;
     private TextView photoLeft;
-    private DataTransferStation mDataTransferStation;
+    private List<LocalMedia> images = new ArrayList<>();
     private RelativeLayout rlPhotoTitle;
-    // 是否重新加载媒体库
-    private boolean mRestartLoadMedia;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -68,7 +65,6 @@ public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoa
         setContentView(R.layout.activity_photo_selector);
         initView(savedInstanceState);
         initListener();
-        mDataTransferStation = DataTransferStation.getInstance();
         mMediaLoader.onCreate(this, this);
         rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Observer<Boolean>() {
@@ -107,15 +103,15 @@ public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoa
         photoRight = findViewById(R.id.photo_right);
         photoRight.setOnClickListener(this);
         mRvList = findViewById(R.id.rv_list);
-        mFolderWindow = new FolderPopupWindow(this, mOptions.mimeType);
+        mFolderWindow = new FolderPopupWindow(this);
         mFolderWindow.setPhotoTitleView(photoTitle);
         mFolderWindow.setOnItemClickListener(this);
         mRvList.setHasFixedSize(true);
         mRvList.addItemDecoration(new GridSpacingItemDecoration(mOptions.gridSize,
                 ScreenUtils.dip2px(this, 2), false));
         mRvList.setLayoutManager(new GridLayoutManager(this, mOptions.gridSize));
-        mMediaAdapter = new MediaAdapter(this, mRvList);
-
+        mMediaAdapter = new MediaAdapter(mContext, mOptions);
+        mRvList.setAdapter(mMediaAdapter);
     };
 
     private void initListener() {
@@ -131,20 +127,25 @@ public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoa
 
     @Override
     public void onLoadFinished(ArrayList<LocalMedia> mediaList, ArrayList<LocalMediaFolder> folderList) {
-        // 将数据存入临时的数据存储点
-        mDataTransferStation.putItems(mediaList);
-        mDataTransferStation.putSelectedItems(mOptions.selectedItems);
-        if (mRestartLoadMedia) {
-            if (mediaList != null && !mediaList.isEmpty()) {
-                LocalMedia media = mediaList.get(0);
-                LogUtils.e("刚刚添加的MediaBean:" + media.getPath());
-                mDataTransferStation.putSelectedItem(media);
+        if (folderList.size() > 0) {
+            LocalMediaFolder folder = folderList.get(0);
+            folder.setChecked(true);
+            List<LocalMedia> localImg = mediaList;
+            // 这里解决有些机型会出现拍照完，相册列表不及时刷新问题
+            // 因为onActivityResult里手动添加拍照后的照片，
+            // 如果查询出来的图片大于或等于当前adapter集合的图片则取更新后的，否则就取本地的
+            if (localImg.size() >= images.size()) {
+                images = localImg;
+                mFolderWindow.bindFolder(folderList);
             }
-            mRestartLoadMedia = false;
         }
-        ArrayList<LocalMedia> selectItems = mDataTransferStation.getSelectedItems();
-        mMediaAdapter.bindImagesData(mediaList);
-        mMediaAdapter.bindSelectImages(selectItems);
+        if (mMediaAdapter != null) {
+            if (images == null) {
+                images = new ArrayList<>();
+            }
+            mMediaAdapter.bindImagesData(images);
+        }
+        mHandler.sendEmptyMessage(DISMISS_DIALOG);
     }
 
     @Override
@@ -166,31 +167,24 @@ public class PhotoSelectorActivity extends PhotoBaseActivity implements MediaLoa
             if (mFolderWindow.isShowing()) {
                 mFolderWindow.dismiss();
             } else {
-                if (mDataTransferStation.getItems() != null && mDataTransferStation.getItems().size() > 0) {
+                if (images != null && images.size() > 0) {
                     mFolderWindow.showAsDropDown(rlPhotoTitle);
-                    List<LocalMedia> selectedImages = mDataTransferStation.getSelectedItems();
+                    List<LocalMedia> selectedImages = mMediaAdapter.getSelectedImages();
                     mFolderWindow.notifyDataCheckedStatus(selectedImages);
                 }
             }
+
         }
 
-        if (id == R.id.photo_right) {
-            List<LocalMedia> images = mDataTransferStation.getSelectedItems();
-        }
     }
 
     @Override
     public void onItemClick(String folderName, List<LocalMedia> medias) {
-
         photoTitle.setText(folderName);
         mMediaAdapter.bindImagesData(medias);
-        mDataTransferStation.putItems(medias);
         mFolderWindow.dismiss();
     }
 
 
-    @Override
-    public void onChange(List<LocalMedia> selectMedias) {
-        mDataTransferStation.putSelectedItems(selectMedias);
-    }
+
 }

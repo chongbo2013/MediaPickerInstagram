@@ -98,7 +98,10 @@ public class MediaLoader implements LoaderManager.LoaderCallbacks<ArrayList<Loca
             folderBean = new LocalMediaFolder();
             folderBean.setName(entry.getKey());
             folderBean.setMedias(entry.getValue());
+            folderBean.setPath(entry.getValue().get(0).getPath());
+            folderBean.setImageNum(entry.getValue().size());
             folderList.add(folderBean);
+
         }
         LogUtils.e("folder list size --> " + folderList.size());
         LogUtils.e("加载文件夹耗时 --> " + (System.currentTimeMillis() - start));

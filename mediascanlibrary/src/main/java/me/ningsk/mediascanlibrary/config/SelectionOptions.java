@@ -12,14 +12,14 @@ import me.ningsk.mediascanlibrary.compress.LuBan;
 import me.ningsk.mediascanlibrary.entity.LocalMedia;
 
 
-public class SelectionOptions implements Parcelable {
+public final class SelectionOptions implements Parcelable {
     @MimeType.MediaMimeType
-    public int mimeType = MimeType.PHOTO;  // 媒体库mime类型
+    public int mimeType;  // 媒体库mime类型
     @StyleRes
     public int themeId;
-    public int maxSelectNum = 9;  // 最多选择数量
-    public int minSelectNum = 0; // 最小选择数量
-    public int gridSize = 3;  // RecyclerView显示网格大小
+    public int maxSelectNum;  // 最多选择数量
+    public int minSelectNum; // 最小选择数量
+    public int gridSize;  // RecyclerView显示网格大小
     public boolean supportDarkStatusBar;  // 是否支持暗色状态栏
     public boolean previewPhoto;  // 是否需要点击预览图片
     public boolean showGif;  // 是否显示gif图片

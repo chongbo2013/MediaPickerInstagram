@@ -53,9 +53,9 @@
         <!--返回键图标-->
         <item name="photo.leftBack.icon">@drawable/photo_back</item>
         <!--标题下拉箭头-->
-        <item name="photo.arrow_down.icon">@drawable/arrow_down</item>
+        <item name="photo.arrow_down.icon">@drawable/orange_arrow_down</item>
         <!--标题上拉箭头-->
-        <item name="photo.arrow_up.icon">@drawable/arrow_up</item>
+        <item name="photo.arrow_up.icon">@drawable/orange_arrow_up</item>
         <!--标题文字颜色-->
         <item name="photo.title.textColor">@color/black</item>
         <!--标题栏右边文字-->

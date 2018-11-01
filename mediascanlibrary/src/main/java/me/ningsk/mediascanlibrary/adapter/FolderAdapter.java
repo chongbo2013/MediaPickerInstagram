@@ -56,7 +56,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         final LocalMediaFolder folder = mFolderList.get(position);
         String name = folder.getName();
         int imageNum = folder.getImageNum();
-        String imagePath = mFolderList.get(0).getPath();
+        String imagePath = folder.getPath();
         boolean isChecked = folder.isChecked();
         int checkedNum = folder.getCheckedNum();
         holder.tvSign.setVisibility(checkedNum > 0 ? View.VISIBLE : View.INVISIBLE);
