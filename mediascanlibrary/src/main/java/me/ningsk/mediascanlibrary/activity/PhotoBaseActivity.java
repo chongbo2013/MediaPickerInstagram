@@ -23,7 +23,7 @@ public class PhotoBaseActivity extends FragmentActivity {
     protected Context mContext;
     protected SelectionOptions mOptions;
     protected int colorPrimary, colorPrimaryDark;
-    protected PhotoDialog dialog;
+
     protected List<LocalMedia> selectionMedias;
 
     /**
@@ -103,30 +103,7 @@ public class PhotoBaseActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * loading dialog
-     */
-    protected void showPleaseDialog() {
-        if (!isFinishing()) {
-            dismissDialog();
-            dialog = new PhotoDialog(this);
-            dialog.show();
-        }
-    }
 
-    /**
-     * dismiss dialog
-     */
-    protected void dismissDialog() {
-        try {
-            if (dialog != null && dialog.isShowing()) {
-                dialog.dismiss();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
     protected void handlerResult(List<LocalMedia> result) {
@@ -151,7 +128,7 @@ public class PhotoBaseActivity extends FragmentActivity {
     /**
      * Close Activity
      */
-    protected void closeActivity() {
+    public void closeActivity() {
         finish();
         overridePendingTransition(0, R.anim.a3);
     }
@@ -159,7 +136,6 @@ public class PhotoBaseActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dismissDialog();
     }
 
 }
