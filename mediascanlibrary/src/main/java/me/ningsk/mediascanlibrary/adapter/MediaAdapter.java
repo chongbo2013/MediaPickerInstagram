@@ -149,15 +149,13 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         return;
                     }
                     int index =  position;
-                    if (false) {
-                        imageSelectChangedListener.onPictureClick(image, index);
-                    } else {
-                        // 如果是单选，并且已经被选中，禁止取消
-                        if (selectMode == PhotoSelectorConfig.SINGLE && contentHolder.check.isSelected()) {
-                            return;
-                        }
-                        changeCheckboxState(contentHolder, image);
+                    imageSelectChangedListener.onPictureClick(image, index);
+                    // 如果是单选，并且已经被选中，禁止取消
+                    if (selectMode == PhotoSelectorConfig.SINGLE && contentHolder.check.isSelected()) {
+                        return;
                     }
+                    changeCheckboxState(contentHolder, image);
+
                 }
             });
         if (selectMode == PhotoSelectorConfig.SINGLE) {
@@ -316,11 +314,6 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public interface OnPhotoSelectChangedListener {
-        /**
-         * 拍照回调
-         */
-        void onTakePhoto();
-
         /**
          * 已选Media回调
          *

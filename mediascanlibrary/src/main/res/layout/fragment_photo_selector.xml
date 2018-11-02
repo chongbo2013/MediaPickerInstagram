@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<me.ningsk.mediascanlibrary.widget.CoordinatorLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     android:fitsSystemWindows="true">
 
     <include
@@ -11,7 +13,36 @@
         layout="@layout/photo_title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
+        android:id="@+id/layout_crop"
+        android:layout_below="@id/id_titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <me.ningsk.mediascanlibrary.widget.cropper.nocropper.CropperView
+            android:id="@+id/cropper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/snap_button"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_margin="16dp"
+            android:padding="11dp"
+            android:layout_gravity="left|bottom"
+            android:scaleType="center"
+            android:background="@drawable/ic_crop"/>
+        <ImageView
+            android:id="@+id/multi_button"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:layout_gravity="right|bottom"
+            android:scaleType="center"
+            android:background="@drawable/ic_multiple"/>
+    </FrameLayout>
+    <me.ningsk.mediascanlibrary.widget.CoordinatorRecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,4 +50,4 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp" />
 
-</RelativeLayout>
+</me.ningsk.mediascanlibrary.widget.CoordinatorLinearLayout>
