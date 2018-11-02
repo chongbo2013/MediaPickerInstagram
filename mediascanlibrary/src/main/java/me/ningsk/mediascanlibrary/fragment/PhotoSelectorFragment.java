@@ -69,6 +69,8 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
     private FrameLayout layoutCrop;
     private CropperView cropperView;
     private ImageView ivSnap;
+    private ImageView ivRotate;
+    private final static int ROTATION_DEGREE = 90;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -133,6 +135,8 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         cropperView = view.findViewById(R.id.cropper);
         ivSnap = view.findViewById(R.id.snap_button);
         ivSnap.setOnClickListener(this);
+        ivRotate = view.findViewById(R.id.rotation_button);
+        ivRotate.setOnClickListener(this);
         rlPhotoTitle = view.findViewById(R.id.rl_photo_title);
         photoTitle = view.findViewById(R.id.photo_title);
         photoTitle.setText(getString(R.string.photo_camera_roll));
@@ -235,6 +239,9 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         }
         if (id == R.id.snap_button) {
             cropperView.snapImage();
+        }
+        if (id == R.id.rotation_button) {
+            cropperView.rotateImageInner(ROTATION_DEGREE, false);
         }
 
     }

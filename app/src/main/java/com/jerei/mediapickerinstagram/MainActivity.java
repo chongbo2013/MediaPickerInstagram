@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void scanMedia() {
         MediaScanEngine.from(this)
-                .openGallery(MimeType.ALL)
+                .openGallery(MimeType.PHOTO)
                 .theme(me.ningsk.mediascanlibrary.R.style.photo_ins_style)
                 .imageSpanCount(4)
                 .maxSelectNum(8)// 最大图片选择数量 int
