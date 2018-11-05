@@ -338,10 +338,13 @@ public class CropperView extends CropView {
     }
 
     public void snapImage() {
-        if (!isFillMode()) {
+        setFillMode(!isFillMode());
+        if (isFillMode()) {
+            rotateImageInner(0, true);
             return;
         }
-        setFillMode(true);
+
+        rotateImageInner(0, false);
     }
 
 }

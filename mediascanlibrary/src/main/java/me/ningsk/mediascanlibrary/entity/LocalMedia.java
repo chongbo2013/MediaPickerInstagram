@@ -31,9 +31,6 @@ public class LocalMedia implements Parcelable {
     public int position;
     private int num;
 
-
-
-
     public int getDuration() {
         return duration;
     }

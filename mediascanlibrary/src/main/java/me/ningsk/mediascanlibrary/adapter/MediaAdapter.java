@@ -183,10 +183,10 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
             contentView = itemView;
             ivPhoto = itemView.findViewById(R.id.iv_picture);
-            check = (TextView) itemView.findViewById(R.id.check);
-            ll_check = (LinearLayout) itemView.findViewById(R.id.ll_check);
-            tvDuration = (TextView) itemView.findViewById(R.id.tv_duration);
-            tvIsGif = (TextView) itemView.findViewById(R.id.tv_isGif);
+            check = itemView.findViewById(R.id.check);
+            ll_check = itemView.findViewById(R.id.ll_check);
+            tvDuration = itemView.findViewById(R.id.tv_duration);
+            tvIsGif = itemView.findViewById(R.id.tv_isGif);
         }
     }
 

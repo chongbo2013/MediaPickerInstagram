@@ -133,6 +133,7 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         parentLayout = view.findViewById(R.id.parent_layout);
         layoutCrop = view.findViewById(R.id.layout_crop);
         cropperView = view.findViewById(R.id.cropper);
+        cropperView.setFillMode(false);
         ivSnap = view.findViewById(R.id.snap_button);
         ivSnap.setOnClickListener(this);
         ivRotate = view.findViewById(R.id.rotation_button);
@@ -241,7 +242,7 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
             cropperView.snapImage();
         }
         if (id == R.id.rotation_button) {
-            cropperView.rotateImageInner(ROTATION_DEGREE, false);
+            cropperView.rotateImageInner(ROTATION_DEGREE, cropperView.isFillMode());
         }
 
     }
