@@ -142,7 +142,15 @@ public class CropperView extends CropView {
         addMultiImageDisposable = Observable.fromCallable(new Callable<Bitmap>() {
             @Override
             public Bitmap call() throws Exception {
-                return null;
+                if (cacheMap.containsKey(path))
+                {
+                    resetShowImage(path);
+                }
+                Bitmap bitmap = decodeFile(new File(path));
+                if (rotateDegree != 0) {
+                    rotateBitmap(bitmap, rotateDegree);
+                }
+                return bitmap;
             }
         }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -166,10 +174,6 @@ public class CropperView extends CropView {
                     }
                 });
 
-
-
-
-        saveLastInfo();
 
     }
 

@@ -42,15 +42,14 @@
             android:layout_gravity="left|bottom"
             android:scaleType="center"
             android:background="@drawable/ic_rotate"/>
-        <ImageView
+        <TextView
             android:id="@+id/multi_button"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_margin="11dp"
             android:padding="8dp"
             android:layout_gravity="right|bottom"
-            android:scaleType="center"
-            android:background="@drawable/ic_multiple"/>
+            android:background="@drawable/checkbox_image_selector"/>
     </FrameLayout>
     <me.ningsk.mediascanlibrary.widget.CoordinatorRecyclerView
         android:id="@+id/rv_list"

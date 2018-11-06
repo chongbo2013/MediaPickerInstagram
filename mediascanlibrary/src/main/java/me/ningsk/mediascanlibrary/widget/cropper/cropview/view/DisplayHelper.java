@@ -349,12 +349,12 @@ public class DisplayHelper implements IDisplayHelper, ScaleGestureDetector.OnSca
             this.mTranslateAnimator.end();
         Rect showRect = new Rect();
         RectF drawRect = new RectF();
-        drawRect.set(0.0F, 0.0F, mSrcBitmapWidth, mSrcBitmapHeight);
+        drawRect.set(0, 0, mSrcBitmapWidth, mSrcBitmapHeight);
         mDrawMatrix.mapRect(drawRect);
         int left = Math.round(Math.max(drawRect.left, this.mCropArea.left));
         int top = Math.round(Math.max(drawRect.top, this.mCropArea.top));
-        int right = Math.round(Math.max(drawRect.right, this.mCropArea.right));
-        int bottom = Math.round(Math.max(drawRect.bottom, this.mCropArea.bottom));
+        int right = Math.round(Math.min(drawRect.right, this.mCropArea.right));
+        int bottom = Math.round(Math.min(drawRect.bottom, this.mCropArea.bottom));
         showRect.set(left, top, right, bottom);
         return showRect;
     }
@@ -435,32 +435,32 @@ public class DisplayHelper implements IDisplayHelper, ScaleGestureDetector.OnSca
         }
         final float cropWidth = mCropArea.width();
         final float cropHeight = mCropArea.height();
-        float newDrawabelHeight;
-        float newDrawabelWidth;
+        float newDrawableHeight;
+        float newDrawableWidth;
         mSrcBitmapWidth = mSrcBitmap.getWidth();
         mSrcBitmapHeight = mSrcBitmap.getHeight();
         RectF srcRect = new RectF(0, 0, mSrcBitmapWidth, mSrcBitmapHeight);
         final boolean isVertical = mSrcBitmapHeight / cropHeight > mSrcBitmapWidth / cropWidth;
         if (isVertical) {
-            newDrawabelWidth = cropWidth;
-            newDrawabelHeight = mSrcBitmapHeight * (cropWidth / mSrcBitmapWidth);
+            newDrawableWidth = cropWidth;
+            newDrawableHeight = mSrcBitmapHeight * (cropWidth / mSrcBitmapWidth);
 
         } else {
-            newDrawabelWidth = mSrcBitmapWidth * (cropHeight / mSrcBitmapHeight);
-            newDrawabelHeight = cropHeight;
+            newDrawableWidth = mSrcBitmapWidth * (cropHeight / mSrcBitmapHeight);
+            newDrawableHeight = cropHeight;
         }
 
-        float dx = mCropArea.left - (newDrawabelWidth - cropWidth) * 0.5f;
-        float dy = mCropArea.top - (newDrawabelHeight - cropHeight) * 0.5f;
+        float dx = mCropArea.left - (newDrawableWidth - cropWidth) * 0.5f;
+        float dy = mCropArea.top - (newDrawableHeight - cropHeight) * 0.5f;
         //original rect of bitmap
-        mOrgBitmapRect = new RectF(dx, dy, dx + newDrawabelWidth, dy + newDrawabelHeight); //normal scale rect
+        mOrgBitmapRect = new RectF(dx, dy, dx + newDrawableWidth, dy + newDrawableHeight); //normal scale rect
         mBaseMatrix.setRectToRect(srcRect, mOrgBitmapRect, Matrix.ScaleToFit.CENTER);
         mSuppMatrix.reset();
 
         if (isVertical) {
-            mMinScale = cropHeight / newDrawabelHeight;
+            mMinScale = cropHeight / newDrawableHeight;
         } else {
-            mMinScale = cropWidth / newDrawabelWidth;
+            mMinScale = cropWidth / newDrawableWidth;
         }
 
         if (mOnFillableChangeListener != null) {

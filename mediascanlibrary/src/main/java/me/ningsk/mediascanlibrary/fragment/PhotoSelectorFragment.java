@@ -28,6 +28,7 @@ import me.ningsk.mediascanlibrary.R;
 import me.ningsk.mediascanlibrary.activity.PhotoSelectorActivity;
 import me.ningsk.mediascanlibrary.adapter.FolderAdapter;
 import me.ningsk.mediascanlibrary.adapter.MediaAdapter;
+import me.ningsk.mediascanlibrary.config.PhotoSelectorConfig;
 import me.ningsk.mediascanlibrary.config.SelectionOptions;
 import me.ningsk.mediascanlibrary.dialog.PhotoDialog;
 import me.ningsk.mediascanlibrary.docaration.GridSpacingItemDecoration;
@@ -70,7 +71,9 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
     private CropperView cropperView;
     private ImageView ivSnap;
     private ImageView ivRotate;
+    private TextView tvMulti;
     private final static int ROTATION_DEGREE = 90;
+    private boolean isGo = true;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -138,6 +141,8 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         ivSnap.setOnClickListener(this);
         ivRotate = view.findViewById(R.id.rotation_button);
         ivRotate.setOnClickListener(this);
+        tvMulti = view.findViewById(R.id.multi_button);
+        tvMulti.setOnClickListener(this);
         rlPhotoTitle = view.findViewById(R.id.rl_photo_title);
         photoTitle = view.findViewById(R.id.photo_title);
         photoTitle.setText(getString(R.string.photo_camera_roll));
@@ -244,6 +249,21 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         if (id == R.id.rotation_button) {
             cropperView.rotateImageInner(ROTATION_DEGREE, cropperView.isFillMode());
         }
+        if (id == R.id.multi_button) {
+            isGo = !isGo;
+            if (isGo) {
+                tvMulti.setSelected(false);
+                ivRotate.setVisibility(View.VISIBLE);
+                ivSnap.setVisibility(View.VISIBLE);
+                mMediaAdapter.setSelectMode(PhotoSelectorConfig.SINGLE);
+            } else {
+                tvMulti.setSelected(true);
+                ivRotate.setVisibility(View.GONE);
+                ivSnap.setVisibility(View.GONE);
+                mMediaAdapter.setSelectMode(PhotoSelectorConfig.MULTIPLE);
+            }
+            mMediaAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -281,12 +301,22 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
 
 
     @Override
+    public void onRemove(LocalMedia media) {
+        cropperView.removeImage(media.getPath());
+    }
+
+    @Override
     public void onChange(List<LocalMedia> selectImages) {
 
     }
 
     @Override
     public void onPictureClick(LocalMedia media, int position) {
-        cropperView.loadNewImage(media.getPath(), 0);
+        if (isGo) {
+            cropperView.loadNewImage(media.getPath(), 0);
+        } else {
+            cropperView.addMultiImage(media.getPath(), 0);
+        }
+
     }
 }

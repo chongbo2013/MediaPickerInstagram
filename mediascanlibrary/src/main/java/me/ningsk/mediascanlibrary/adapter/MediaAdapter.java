@@ -88,6 +88,10 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return images;
     }
 
+    public void setSelectMode(int selectMode) {
+        this.selectMode = selectMode;
+    }
+
     @Override
     public int getItemViewType(int position) {
             return PhotoSelectorConfig.TYPE_PICTURE;
@@ -242,6 +246,7 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             for (LocalMedia media : selectImages) {
                 if (media.getPath().equals(image.getPath())) {
                     selectImages.remove(media);
+                    imageSelectChangedListener.onRemove(media);
                     subSelectPosition();
                     disZoom(contentHolder.ivPhoto);
                     break;
@@ -314,6 +319,9 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public interface OnPhotoSelectChangedListener {
+
+        void onRemove(LocalMedia media);
+
         /**
          * 已选Media回调
          *

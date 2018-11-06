@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .imageSpanCount(4)
                 .maxSelectNum(8)// 最大图片选择数量 int
                 .minSelectNum(1)// 最小选择数量 int
-                .selectionMode(PhotoSelectorConfig.MULTIPLE)
+                .selectionMode(PhotoSelectorConfig.SINGLE)
                 .isZoomAnim(false)
                 .forResult(PhotoSelectorConfig.CHOOSE_REQUEST);
     }
