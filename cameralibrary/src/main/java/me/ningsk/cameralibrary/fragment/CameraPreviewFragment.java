@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ import me.ningsk.baselibrary.fragment.PermissionErrorDialogFragment;
 import me.ningsk.baselibrary.utils.BitmapUtils;
 import me.ningsk.baselibrary.utils.BrightnessUtils;
 import me.ningsk.baselibrary.utils.PermissionUtils;
+import me.ningsk.baselibrary.utils.StringUtils;
 import me.ningsk.cameralibrary.R;
 import me.ningsk.cameralibrary.engine.camera.CameraEngine;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
@@ -48,7 +50,6 @@ import me.ningsk.cameralibrary.engine.render.PreviewRecorder;
 import me.ningsk.cameralibrary.engine.render.PreviewRenderer;
 import me.ningsk.cameralibrary.listener.OnPageOperationListener;
 import me.ningsk.cameralibrary.utils.PathConstraints;
-import me.ningsk.cameralibrary.utils.StringUtils;
 import me.ningsk.cameralibrary.widget.AspectFrameLayout;
 import me.ningsk.cameralibrary.widget.HorizontalIndicatorView;
 import me.ningsk.cameralibrary.widget.JRSurfaceView;
@@ -56,9 +57,11 @@ import me.ningsk.cameralibrary.widget.PopupSettingView;
 import me.ningsk.cameralibrary.widget.RatioImageView;
 import me.ningsk.cameralibrary.widget.ShutterButton;
 import me.ningsk.facedetectlibrary.FaceTracker;
+import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColor;
+import me.ningsk.filterlibrary.glfilter.resource.FilterHelper;
+import me.ningsk.filterlibrary.glfilter.resource.ResourceJsonCodec;
 import me.ningsk.landmark.LandmarkEngine;
 import me.ningsk.listener.FaceTrackerCallback;
-import me.ningsk.filterlibrary.glfilter.GLImageFilterManager;
 import me.ningsk.filterlibrary.multimedia.VideoCombiner;
 
 /**
@@ -138,8 +141,8 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
     private Activity mActivity;
     // 页面跳转监听器
     private OnPageOperationListener mPageListener;
-    // 贴纸页面
-    private PreviewStickerFragment mStickerFragment;
+    // 贴纸资源页面
+    private PreviewResourceFragment mResourcesFragment;
     // 滤镜页面
     private PreviewEffectFragment mEffectFragment;
 
@@ -194,6 +197,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
     /**
      * 初始化页面
+     *
      * @param view
      */
     private void initView(View view) {
@@ -227,7 +231,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
                 return true;
             }
         });
-        mBtnSetting = (Button)view.findViewById(R.id.btn_setting);
+        mBtnSetting = (Button) view.findViewById(R.id.btn_setting);
         mBtnSetting.setOnClickListener(this);
         mBtnViewPhoto = (Button) view.findViewById(R.id.btn_view_photo);
         mBtnViewPhoto.setOnClickListener(this);
@@ -323,6 +327,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
     /**
      * 处理返回事件
+     *
      * @return
      */
     public boolean onBackPressed() {
@@ -330,7 +335,6 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             hideEffectView();
             return true;
         } else if (isShowingStickers) {
-            isShowingStickers = false;
             hideStickerView();
             return true;
         }
@@ -429,11 +433,11 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
     private void showStickers() {
         isShowingStickers = true;
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        if (mStickerFragment == null) {
-            mStickerFragment = new PreviewStickerFragment();
-            ft.add(R.id.fragment_container, mStickerFragment);
+        if (mResourcesFragment == null) {
+            mResourcesFragment = new PreviewResourceFragment();
+            ft.add(R.id.fragment_container, mResourcesFragment);
         } else {
-            ft.show(mStickerFragment);
+            ft.show(mResourcesFragment);
         }
         ft.commit();
         hideBottomLayout();
@@ -463,9 +467,9 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
     private void hideStickerView() {
         if (isShowingStickers) {
             isShowingStickers = false;
-            if (mStickerFragment != null) {
+            if (mResourcesFragment != null) {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.hide(mStickerFragment);
+                ft.hide(mResourcesFragment);
                 ft.commit();
             }
         }
@@ -498,7 +502,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         ViewGroup.LayoutParams layoutParams = mBtnShutter.getLayoutParams();
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 60, mActivity.getResources().getDisplayMetrics());
-        layoutParams.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+        layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 60, mActivity.getResources().getDisplayMetrics());
         mBtnShutter.setLayoutParams(layoutParams);
     }
@@ -510,9 +514,9 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         mBtnShutter.setOuterBackgroundColor(mCameraParam.currentRatio < CameraParam.Ratio_4_3
                 ? R.color.shutter_gray_light : R.color.shutter_gray_dark);
         ViewGroup.LayoutParams layoutParams = mBtnShutter.getLayoutParams();
-        layoutParams.width = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 100, mActivity.getResources().getDisplayMetrics());
-        layoutParams.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+        layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 100, mActivity.getResources().getDisplayMetrics());
         mBtnShutter.setLayoutParams(layoutParams);
         mBtnEffect.setVisibility(View.VISIBLE);
@@ -554,9 +558,8 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
                 mFilterIndex = mEffectFragment.getCurrentFilterIndex();
             }
             mFilterIndex++;
-            mFilterIndex = mFilterIndex % GLImageFilterManager.getFilterTypes().size();
-            PreviewRenderer.getInstance()
-                    .changeFilterType(GLImageFilterManager.getFilterTypes().get(mFilterIndex));
+            mFilterIndex = mFilterIndex % FilterHelper.getFilterList().size();
+            changeDynamicColor(mFilterIndex);
             if (mEffectFragment != null) {
                 mEffectFragment.scrollToCurrentFilter(mFilterIndex);
             }
@@ -569,11 +572,10 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             }
             mFilterIndex--;
             if (mFilterIndex < 0) {
-                int count = GLImageFilterManager.getFilterTypes().size();
+                int count = FilterHelper.getFilterList().size();
                 mFilterIndex = count > 0 ? count - 1 : 0;
             }
-            PreviewRenderer.getInstance()
-                    .changeFilterType(GLImageFilterManager.getFilterTypes().get(mFilterIndex));
+            changeDynamicColor(mFilterIndex);
 
             if (mEffectFragment != null) {
                 mEffectFragment.scrollToCurrentFilter(mFilterIndex);
@@ -595,6 +597,23 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         }
 
     };
+
+    /**
+     * 切换滤镜
+     *
+     * @param filterIndex
+     */
+    private void changeDynamicColor(int filterIndex) {
+        String folderPath = FilterHelper.getFilterDirectory(mActivity) + File.separator +
+                FilterHelper.getFilterList().get(filterIndex).unzipFolder;
+        DynamicColor color = null;
+        try {
+            color = ResourceJsonCodec.decodeFilterData(folderPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        PreviewRenderer.getInstance().changeDynamicFilter(color);
+    }
 
     /**
      * 单双击回调监听
@@ -623,7 +642,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
                 List<String> focusModes = CameraEngine.getInstance().getCamera()
                         .getParameters().getSupportedFocusModes();
                 if (focusModes != null && focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
-                    CameraEngine.getInstance().setFocusArea(CameraEngine.getFocusArea((int)x, (int)y,
+                    CameraEngine.getInstance().setFocusArea(CameraEngine.getFocusArea((int) x, (int) y,
                             mCameraSurfaceView.getWidth(), mCameraSurfaceView.getHeight(), FocusSize));
                     mMainHandler.post(new Runnable() {
                         @Override
@@ -719,7 +738,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    String filePath = PathConstraints.getMediaPath();
+                    String filePath = PathConstraints.getImageCachePath(mActivity);
                     BitmapUtils.saveBitmap(filePath, buffer, width, height);
                     if (mPageListener != null) {
                         mPageListener.onOpenImageEditPage(filePath);
@@ -830,7 +849,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             // 开始录制
             PreviewRecorder.getInstance()
                     .setRecordType(mCameraParam.mGalleryType == GalleryType.VIDEO ? PreviewRecorder.RecordType.Video : PreviewRecorder.RecordType.Gif)
-                    .setOutputPath(PathConstraints.getVideoPath())
+                    .setOutputPath(PathConstraints.getVideoCachePath(mActivity))
                     .enableAudio(enableAudio)
                     .setRecordSize(width, height)
                     .setOnRecordListener(mRecordListener)
@@ -903,6 +922,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
     /**
      * 删除已录制的视频
+     *
      * @param clearAll
      */
     private void deleteRecordedVideo(boolean clearAll) {
@@ -949,7 +969,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             mNeedToWaitStop = false;
             // 销毁录制线程
             PreviewRecorder.getInstance().destroyRecorder();
-            combinePath = PathConstraints.getVideoPath();
+            combinePath = PathConstraints.getVideoCachePath(mActivity);
             PreviewRecorder.getInstance().combineVideo(combinePath, mCombineListener);
         }
     }
@@ -1000,7 +1020,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
                     }
                 }
             });
-            if (mPageListener != null)  {
+            if (mPageListener != null) {
                 mPageListener.onOpenVideoEditPage(combinePath);
             }
         }
@@ -1014,7 +1034,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             PermissionConfirmDialogFragment.newInstance(getString(R.string.request_camera_permission), PermissionUtils.REQUEST_CAMERA_PERMISSION, true)
                     .show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } else {
-            requestPermissions(new String[]{ Manifest.permission.CAMERA},
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
                     PermissionUtils.REQUEST_CAMERA_PERMISSION);
         }
     }
@@ -1027,7 +1047,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             PermissionConfirmDialogFragment.newInstance(getString(R.string.request_storage_permission), PermissionUtils.REQUEST_STORAGE_PERMISSION)
                     .show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } else {
-            requestPermissions(new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE},
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     PermissionUtils.REQUEST_STORAGE_PERMISSION);
         }
     }
@@ -1040,7 +1060,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             PermissionConfirmDialogFragment.newInstance(getString(R.string.request_sound_permission), PermissionUtils.REQUEST_SOUND_PERMISSION)
                     .show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } else {
-            requestPermissions(new String[]{ Manifest.permission.RECORD_AUDIO},
+            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO},
                     PermissionUtils.REQUEST_SOUND_PERMISSION);
         }
     }
@@ -1099,6 +1119,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
     private BroadcastReceiver mHomePressReceiver = new BroadcastReceiver() {
         private final String SYSTEM_DIALOG_REASON_KEY = "reason";
         private final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
+
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -1129,10 +1150,10 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
     /**
      * 设置页面监听器
+     *
      * @param listener
      */
     public void setOnPageOperationListener(OnPageOperationListener listener) {
         mPageListener = listener;
     }
 }
-

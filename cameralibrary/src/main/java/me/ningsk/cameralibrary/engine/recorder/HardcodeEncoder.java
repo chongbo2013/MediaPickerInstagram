@@ -12,10 +12,13 @@ import android.util.Log;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.nio.FloatBuffer;
 
 import me.ningsk.filterlibrary.gles.EglCore;
 import me.ningsk.filterlibrary.gles.WindowSurface;
 import me.ningsk.filterlibrary.glfilter.base.GLImageFilter;
+import me.ningsk.filterlibrary.glfilter.utils.OpenGLUtils;
+import me.ningsk.filterlibrary.glfilter.utils.TextureRotationUtils;
 import me.ningsk.filterlibrary.multimedia.MediaAudioEncoder;
 import me.ningsk.filterlibrary.multimedia.MediaEncoder;
 import me.ningsk.filterlibrary.multimedia.MediaMuxerWrapper;
@@ -244,6 +247,8 @@ public final class HardcodeEncoder {
         private WindowSurface mRecordWindowSurface;
         // 录制的Filter
         private GLImageFilter mRecordFilter;
+        private FloatBuffer mVertexBuffer;
+        private FloatBuffer mTextureBuffer;
         // 复用器管理器
         private MediaMuxerWrapper mMuxerManager;
 
@@ -271,6 +276,8 @@ public final class HardcodeEncoder {
         public void run() {
             Looper.prepare();
             synchronized (mReadyFence) {
+                mVertexBuffer = OpenGLUtils.createFloatBuffer(TextureRotationUtils.CubeVertices);
+                mTextureBuffer = OpenGLUtils.createFloatBuffer(TextureRotationUtils.TextureVertices);
                 mHandler = new RecordHandler(this);
                 mReady = true;
                 mReadyFence.notify();
@@ -505,7 +512,7 @@ public final class HardcodeEncoder {
         private void drawRecordingFrame(int textureId) {
             if (mRecordFilter != null) {
                 GLES30.glViewport(0, 0, mVideoWidth, mVideoHeight);
-                mRecordFilter.drawFrame(textureId);
+                mRecordFilter.drawFrame(textureId, mVertexBuffer, mTextureBuffer);
             }
         }
 
@@ -532,6 +539,14 @@ public final class HardcodeEncoder {
             if (mRecordWindowSurface != null) {
                 mRecordWindowSurface.release();
                 mRecordWindowSurface = null;
+            }
+            if (mVertexBuffer != null) {
+                mVertexBuffer.clear();
+                mVertexBuffer = null;
+            }
+            if (mTextureBuffer != null) {
+                mTextureBuffer.clear();
+                mTextureBuffer = null;
             }
         }
 
@@ -631,4 +646,3 @@ public final class HardcodeEncoder {
     }
 
 }
-

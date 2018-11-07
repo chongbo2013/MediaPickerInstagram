@@ -28,6 +28,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -43,11 +45,15 @@ import me.ningsk.baselibrary.utils.JRMediaPlayer;
 import me.ningsk.baselibrary.utils.PermissionUtils;
 import me.ningsk.baselibrary.utils.StateType;
 import me.ningsk.baselibrary.utils.StringUtils;
-import me.ningsk.filterlibrary.glfilter.GLImageFilterManager;
-import me.ningsk.filterlibrary.glfilter.advanced.GLImageOESInputFilter;
 import me.ningsk.filterlibrary.glfilter.base.GLImageFilter;
-import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.base.GLImageOESInputFilter;
+import me.ningsk.filterlibrary.glfilter.color.GLImageDynamicColorFilter;
+import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColor;
+import me.ningsk.filterlibrary.glfilter.resource.FilterHelper;
+import me.ningsk.filterlibrary.glfilter.resource.ResourceJsonCodec;
+import me.ningsk.filterlibrary.glfilter.resource.bean.ResourceData;
 import me.ningsk.filterlibrary.glfilter.utils.OpenGLUtils;
+import me.ningsk.filterlibrary.glfilter.utils.TextureRotationUtils;
 import me.ningsk.videolibrary.R;
 import me.ningsk.videolibrary.bean.Music;
 import me.ningsk.videolibrary.bean.VideoEffect;
@@ -90,8 +96,8 @@ public class VideoEditFragment extends Fragment
     private GLImageOESInputFilter mInputFilter;
     // 显示输出滤镜
     private GLImageFilter mDisplayFilter;
-    // 当前滤镜类型
-    private GLImageFilterType mCurrentFilterType = GLImageFilterType.NONE;
+    // 当前滤镜数据
+    private ResourceData mResourceData;
     // 滤镜组
     private List<GLImageFilter> mColorFilters = new ArrayList<>();
     // 视频特效数据
@@ -103,10 +109,14 @@ public class VideoEditFragment extends Fragment
     // 是否处于编辑状态（预览视频还是给视频添加滤镜）
     private volatile boolean mVideoEdit;
     // 输入文理
-    private int mInputTexture;
+    private int mInputTexture = OpenGLUtils.GL_NOT_TEXTURE;
     private int mCurrentTexture;
     private SurfaceTexture mSurfaceTexture;
     private float[] mMatrix = new float[16];
+
+    private FloatBuffer mVertexBuffer;
+    private FloatBuffer mTextureBuffer;
+
     // 视频播放器
     private JRMediaPlayer mVideoPlayer;
     private String mVideoPath;
@@ -201,6 +211,8 @@ public class VideoEditFragment extends Fragment
         } else {
             requestStoragePermission();
         }
+        mVertexBuffer = OpenGLUtils.createFloatBuffer(TextureRotationUtils.CubeVertices);
+        mTextureBuffer = OpenGLUtils.createFloatBuffer(TextureRotationUtils.TextureVertices);
     }
 
     /**
@@ -322,6 +334,14 @@ public class VideoEditFragment extends Fragment
             mRefreshHandler = null;
         }
         mStartMusicSelectListener = null;
+        if (mVertexBuffer != null) {
+            mVertexBuffer.clear();
+            mVertexBuffer = null;
+        }
+        if (mTextureBuffer != null) {
+            mTextureBuffer.clear();
+            mTextureBuffer = null;
+        }
         super.onDestroy();
         if (VERBOSE) {
             Log.d(TAG, "onDestroy: ");
@@ -401,7 +421,6 @@ public class VideoEditFragment extends Fragment
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         initFilters();
-        mInputTexture = OpenGLUtils.createOESTexture();
     }
 
     @Override
@@ -424,23 +443,28 @@ public class VideoEditFragment extends Fragment
             return;
         }
         synchronized (this) {
-            mSurfaceTexture.attachToGLContext(mInputTexture);
+            // 如果只创建一个纹理，某些机型会出现updateTexImage崩溃的现象
+            int inputTexture = OpenGLUtils.createOESTexture();
+            mSurfaceTexture.attachToGLContext(inputTexture);
             mSurfaceTexture.updateTexImage();
             mSurfaceTexture.getTransformMatrix(mMatrix);
 
             // 绘制到FBO
-            mInputFilter.setTextureTransformMatirx(mMatrix);
-            mCurrentTexture = mInputTexture;
-            mCurrentTexture = mInputFilter.drawFrameBuffer(mCurrentTexture);
+            mInputFilter.setTextureTransformMatrix(mMatrix);
+            mCurrentTexture = inputTexture;
+            mCurrentTexture = mInputFilter.drawFrameBuffer(mCurrentTexture, mVertexBuffer, mTextureBuffer);
 
             mSurfaceTexture.detachFromGLContext();
+
+            // TODO 待优化的地方，如果能不用频繁创建和删除OES纹理就最好不过了
+            GLES30.glDeleteTextures(1, new int[] {inputTexture}, 0);
         }
 
         // 滤镜
         for (int i = 0; i < mColorFilters.size(); i++) {
             if (mColorFilters.get(i) != null) {
                 mColorFilters.get(i).setTimerValue(mCurrentPosition);
-                mCurrentTexture = mColorFilters.get(i).drawFrameBuffer(mCurrentTexture);
+                mCurrentTexture = mColorFilters.get(i).drawFrameBuffer(mCurrentTexture, mVertexBuffer, mTextureBuffer);
             }
         }
 
@@ -449,7 +473,7 @@ public class VideoEditFragment extends Fragment
                 for (int i = 0; i < mEffectEditLists.size(); i++) {
                     if (mEffectEditLists.get(i) != null && mEffectEditLists.get(i).getFilter() != null) {
                         mEffectEditLists.get(i).getFilter().setTimerValue(mCurrentPosition);
-                        mCurrentTexture = mEffectEditLists.get(i).getFilter().drawFrameBuffer(mCurrentTexture);
+                        mCurrentTexture = mEffectEditLists.get(i).getFilter().drawFrameBuffer(mCurrentTexture, mVertexBuffer, mTextureBuffer);
                     }
                 }
             }
@@ -460,14 +484,14 @@ public class VideoEditFragment extends Fragment
                     if (mVideoEffectLists.get(i).getStartPosition() < mCurrentPosition
                             && mVideoEffectLists.get(i).getFinishPosition() > mCurrentPosition) {
                         mVideoEffectLists.get(i).getFilter().setTimerValue(mCurrentPosition);
-                        mCurrentTexture = mVideoEffectLists.get(i).getFilter().drawFrameBuffer(mCurrentTexture);
+                        mCurrentTexture = mVideoEffectLists.get(i).getFilter().drawFrameBuffer(mCurrentTexture, mVertexBuffer, mTextureBuffer);
                         break;
                     }
                 }
             }
         }
         // 绘制显示
-        mDisplayFilter.drawFrame(mCurrentTexture);
+        mDisplayFilter.drawFrame(mCurrentTexture, mVertexBuffer, mTextureBuffer);
     }
 
     /**
@@ -644,13 +668,22 @@ public class VideoEditFragment extends Fragment
     }
 
     /**
-     * 初始化滤镜s
+     * 初始化滤镜
      */
     private void initFilters() {
         mInputFilter = new GLImageOESInputFilter(getContext());
 
         mColorFilters.clear();
-        mColorFilters.add(GLImageFilterManager.getFilter(mGLSurfaceView.getContext(), mCurrentFilterType));
+        if (mResourceData != null) {
+            String folderPath = FilterHelper.getFilterDirectory(mActivity) + File.separator + mResourceData.unzipFolder;
+            DynamicColor color = null;
+            try {
+                color = ResourceJsonCodec.decodeFilterData(folderPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mColorFilters.add(new GLImageDynamicColorFilter(mActivity, color));
+        }
 
         mDisplayFilter = new GLImageFilter(getContext());
     }
@@ -912,7 +945,7 @@ public class VideoEditFragment extends Fragment
 
     private VideoFilterFragment.OnFilterSelectListener mFilterSelectListener = new VideoFilterFragment.OnFilterSelectListener() {
         @Override
-        public void onFilterSelected(final GLImageFilterType type) {
+        public void onFilterSelected(final ResourceData resourceData) {
             mGLSurfaceView.queueEvent(new Runnable() {
                 @Override
                 public void run() {
@@ -922,8 +955,16 @@ public class VideoEditFragment extends Fragment
                         }
                     }
                     mColorFilters.clear();
-                    mCurrentFilterType = type;
-                    GLImageFilter filter = GLImageFilterManager.getFilter(mGLSurfaceView.getContext(), mCurrentFilterType);
+                    mResourceData = resourceData;
+                    // 准备滤镜数据
+                    String folderPath = FilterHelper.getFilterDirectory(mActivity) + File.separator + resourceData.unzipFolder;
+                    DynamicColor color = null;
+                    try {
+                        color = ResourceJsonCodec.decodeFilterData(folderPath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    GLImageFilter filter = new GLImageDynamicColorFilter(mGLSurfaceView.getContext(), color);
                     filter.onInputSizeChanged(mVideoWidth, mVideoHeight);
                     filter.initFrameBuffer(mVideoWidth, mVideoHeight);
                     filter.onDisplaySizeChanged(mViewWidth, mViewHeight);
@@ -939,22 +980,31 @@ public class VideoEditFragment extends Fragment
             if (mVideoEffectFragment == null) {
                 return;
             }
-            final GLImageFilterType type = mVideoEffectFragment.getFilterType(position);
+            final ResourceData resourceData = mVideoEffectFragment.getFilterData(position);
             mGLSurfaceView.queueEvent(new Runnable() {
                 @Override
                 public void run() {
                     // 准备滤镜数据
-                    GLImageFilter filter = GLImageFilterManager.getEffectFilter(mGLSurfaceView.getContext(), type);
-                    filter.initFrameBuffer(mVideoWidth, mVideoHeight);
-                    filter.onInputSizeChanged(mVideoWidth, mVideoHeight);
-                    filter.onDisplaySizeChanged(mViewWidth, mViewHeight);
+                    String folderPath = FilterHelper.getFilterDirectory(mActivity) + File.separator + resourceData.unzipFolder;
+                    DynamicColor color = null;
+                    try {
+                        color = ResourceJsonCodec.decodeFilterData(folderPath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (color != null) {
+                        GLImageFilter filter = new GLImageDynamicColorFilter(mActivity, color);
+                        filter.initFrameBuffer(mVideoWidth, mVideoHeight);
+                        filter.onInputSizeChanged(mVideoWidth, mVideoHeight);
+                        filter.onDisplaySizeChanged(mViewWidth, mViewHeight);
 
-                    VideoEffect videoDrawData = new VideoEffect();
-                    videoDrawData.setStartPosition(mCurrentPosition);
-                    videoDrawData.setFilter(filter);
+                        VideoEffect videoDrawData = new VideoEffect();
+                        videoDrawData.setStartPosition(mCurrentPosition);
+                        videoDrawData.setFilter(filter);
 
-                    clearEffectEditData();
-                    mEffectEditLists.add(videoDrawData);
+                        clearEffectEditData();
+                        mEffectEditLists.add(videoDrawData);
+                    }
                 }
             });
             if (mVideoEffectFragment.getIndicatorProgress() != null) {
@@ -1127,4 +1177,3 @@ public class VideoEditFragment extends Fragment
     }
 
 }
-

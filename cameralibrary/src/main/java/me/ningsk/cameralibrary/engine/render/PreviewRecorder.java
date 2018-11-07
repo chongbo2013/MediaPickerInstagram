@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import me.ningsk.baselibrary.utils.FileUtils;
+import me.ningsk.baselibrary.utils.StringUtils;
 import me.ningsk.cameralibrary.engine.listener.OnRecordListener;
 import me.ningsk.cameralibrary.engine.recorder.HardcodeEncoder;
 import me.ningsk.cameralibrary.engine.recorder.RecordItem;
 import me.ningsk.cameralibrary.engine.recorder.RecordTimer;
-import me.ningsk.cameralibrary.utils.FileUtils;
-import me.ningsk.cameralibrary.utils.StringUtils;
 import me.ningsk.filterlibrary.multimedia.MediaEncoder;
 import me.ningsk.filterlibrary.multimedia.VideoCombiner;
 

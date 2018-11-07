@@ -9,8 +9,8 @@ import me.ningsk.cameralibrary.engine.model.AspectRatio;
 import me.ningsk.cameralibrary.engine.model.GalleryType;
 import me.ningsk.cameralibrary.listener.OnGallerySelectedListener;
 import me.ningsk.cameralibrary.listener.OnPreviewCaptureListener;
-import me.ningsk.filterlibrary.glfilter.model.Beauty;
-import me.ningsk.filterlibrary.glfilter.model.Makeup;
+import me.ningsk.filterlibrary.glfilter.beauty.bean.BeautyParam;
+import me.ningsk.filterlibrary.glfilter.makeup.bean.MakeupParam;
 
 /**
  * <p>描述：相机配置参数<p>
@@ -112,9 +112,9 @@ public final class CameraParam {
     // 是否允许暗角
     public boolean enableVignette;
     // 美颜参数
-    public Beauty beauty;
+    public BeautyParam beauty;
     // 彩妆参数
-    public Makeup makeup;
+    public MakeupParam makeup;
 
     private static final CameraParam mInstance = new CameraParam();
 
@@ -160,8 +160,8 @@ public final class CameraParam {
         isTakePicture = false;
         enableDepthBlur = false;
         enableVignette = false;
-        beauty = new Beauty();
-        makeup = new Makeup();
+        beauty = new BeautyParam();
+        makeup = new MakeupParam();
     }
 
     /**
@@ -201,4 +201,3 @@ public final class CameraParam {
     }
 
 }
-

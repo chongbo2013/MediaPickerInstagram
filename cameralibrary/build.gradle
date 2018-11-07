@@ -35,6 +35,7 @@ dependencies {
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["support-annotations"]
     api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["glide"]
     implementation project(':filterlibrary')
     implementation project(':landmarklibrary')
     implementation project(":baselibrary")

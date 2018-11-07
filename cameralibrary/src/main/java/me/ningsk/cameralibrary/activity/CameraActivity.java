@@ -43,6 +43,9 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
         faceTrackerRequestNetwork();
     }
 
+    /**
+     * 人脸检测SDK验证，可以替换成自己的SDK
+     */
     private void faceTrackerRequestNetwork() {
         new Thread(new Runnable() {
             @Override
@@ -105,4 +108,3 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
         startActivity(intent);
     }
 }
-

@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ningsk.filterlibrary.glfilter.GLImageFilterManager;
-import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.resource.FilterHelper;
+import me.ningsk.filterlibrary.glfilter.resource.bean.ResourceData;
 import me.ningsk.videolibrary.R;
 import me.ningsk.videolibrary.adapter.VideoFilterAdapter;
 
@@ -32,8 +32,7 @@ public class VideoFilterFragment extends BaseVideoFilterFragment {
 
     @Override
     protected void initFilters() {
-        mGlFilterType.addAll(GLImageFilterManager.getFilterTypes());
-        mFilterName.addAll(GLImageFilterManager.getFilterNames());
+        mFilterDataList = FilterHelper.getFilterList();
     }
 
     @Nullable
@@ -48,13 +47,13 @@ public class VideoFilterFragment extends BaseVideoFilterFragment {
         mFilterLayoutManager = new LinearLayoutManager(getActivity());
         mFilterLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mFilterListView.setLayoutManager(mFilterLayoutManager);
-        mFilterAdapter = new VideoFilterAdapter(getActivity(), mGlFilterType, mFilterName);
+        mFilterAdapter = new VideoFilterAdapter(getActivity(), mFilterDataList);
         mFilterListView.setAdapter(mFilterAdapter);
         mFilterAdapter.setOnFilterChangeListener(new VideoFilterAdapter.OnFilterChangeListener() {
             @Override
-            public void onFilterChanged(GLImageFilterType type) {
+            public void onFilterChanged(ResourceData resourceData) {
                 if (mListener != null) {
-                    mListener.onFilterSelected(type);
+                    mListener.onFilterSelected(resourceData);
                 }
                 mCurrentFilterIndex = mFilterAdapter.getSelectedPosition();
             }
@@ -97,7 +96,7 @@ public class VideoFilterFragment extends BaseVideoFilterFragment {
      * 滤镜选中监听器
      */
     public interface OnFilterSelectListener {
-        void onFilterSelected(GLImageFilterType type);
+        void onFilterSelected(ResourceData resourceData);
     }
 
     /**

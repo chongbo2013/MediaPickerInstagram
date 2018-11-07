@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 滤镜组基类
- * Created by cain on 17-7-17.
+ * <p>描述：滤镜组基类<p>
+ * 作者：ningsk<br>
+ * 日期：2018/11/7 10 12<br>
+ * 版本：v1.0<br>
  */
 public abstract class GLImageGroupFilter extends GLImageFilter {
 

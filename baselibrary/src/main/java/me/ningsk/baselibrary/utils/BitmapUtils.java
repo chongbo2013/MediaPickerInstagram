@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -34,6 +35,8 @@ import java.nio.ByteBuffer;
  * 版本：v1.0<br>
  */
 public class BitmapUtils {
+
+    private static final String TAG = "BitmapUtils";
 
     public static final String[] EXIF_TAGS = {
             "FNumber",
@@ -88,6 +91,26 @@ public class BitmapUtils {
         } else {
             return bitmap;
         }
+    }
+
+    /**
+     * 从普通文件中读入图片
+     * @param fileName
+     * @return
+     */
+    public static Bitmap getBitmapFromFile(String fileName) {
+        Bitmap bitmap;
+        File file = new File(fileName);
+        if (!file.exists()) {
+            return null;
+        }
+        try {
+            bitmap = BitmapFactory.decodeFile(fileName);
+        } catch (Exception e) {
+            Log.e(TAG, "getBitmapFromFile: ", e);
+            bitmap = null;
+        }
+        return bitmap;
     }
 
     /**
@@ -657,4 +680,3 @@ public class BitmapUtils {
         return true;
     }
 }
-

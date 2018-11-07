@@ -8,7 +8,8 @@ import java.lang.ref.WeakReference;
 
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.listener.OnCameraCallback;
-import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColor;
+import me.ningsk.filterlibrary.glfilter.stickers.bean.DynamicSticker;
 
 /**
  * <p>描述：预览渲染器<p>
@@ -146,18 +147,46 @@ public final class PreviewRenderer {
     }
 
     /**
-     * 改变Filter类型
+     * 切换滤镜
+     * @param color
      */
-    public void changeFilterType(GLImageFilterType type) {
+    public void changeDynamicFilter(DynamicColor color) {
         if (mRenderHandler == null) {
             return;
         }
         synchronized (mSynOperation) {
             mRenderHandler.sendMessage(mRenderHandler
-                    .obtainMessage(RenderHandler.MSG_FILTER_TYPE, type));
+                    .obtainMessage(RenderHandler.MSG_CHANGE_DYNAMIC_COLOR, color));
         }
     }
 
+    /**
+     * 切换动态资源
+     * @param color
+     */
+    public void changeDynamicResource(DynamicColor color) {
+        if (mRenderHandler == null) {
+            return;
+        }
+        synchronized (mSynOperation) {
+            mRenderHandler.sendMessage(mRenderHandler
+                    .obtainMessage(RenderHandler.MSG_CHANGE_DYNAMIC_RESOURCE, color));
+        }
+    }
+
+    /**
+     * 切换动态资源
+     * @param sticker
+     */
+    public void changeDynamicResource(DynamicSticker sticker) {
+        if (mRenderHandler == null) {
+            return;
+        }
+        synchronized (mSynOperation) {
+            mRenderHandler.sendMessage(mRenderHandler
+                    .obtainMessage(RenderHandler.MSG_CHANGE_DYNAMIC_RESOURCE, sticker));
+        }
+    }
 
     /**
      * 开始录制
@@ -229,4 +258,3 @@ public final class PreviewRenderer {
         }
     }
 }
-

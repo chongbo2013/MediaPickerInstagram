@@ -19,14 +19,18 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.io.File;
+
 import me.ningsk.cameralibrary.R;
 import me.ningsk.cameralibrary.adapter.PreviewBeautyAdapter;
 import me.ningsk.cameralibrary.adapter.PreviewFilterAdapter;
 import me.ningsk.cameralibrary.adapter.PreviewMakeupAdapter;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.render.PreviewRenderer;
-import me.ningsk.filterlibrary.glfilter.GLImageFilterManager;
-import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColor;
+import me.ningsk.filterlibrary.glfilter.resource.FilterHelper;
+import me.ningsk.filterlibrary.glfilter.resource.ResourceJsonCodec;
+import me.ningsk.filterlibrary.glfilter.resource.bean.ResourceData;
 
 /**
  * <p>描述：特效选择界面<p>
@@ -413,13 +417,23 @@ public class PreviewEffectFragment extends Fragment implements View.OnClickListe
             mFilterLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mFilterRecyclerView.setLayoutManager(mFilterLayoutManager);
             mFilterAdapter = new PreviewFilterAdapter(mActivity,
-                    GLImageFilterManager.getFilterTypes(),
-                    GLImageFilterManager.getFilterNames());
+                    FilterHelper.getFilterList());
             mFilterRecyclerView.setAdapter(mFilterAdapter);
             mFilterAdapter.setOnFilterChangeListener(new PreviewFilterAdapter.OnFilterChangeListener() {
                 @Override
-                public void onFilterChanged(GLImageFilterType type) {
-                    PreviewRenderer.getInstance().changeFilterType(type);
+                public void onFilterChanged(ResourceData resourceData) {
+                    if (!resourceData.name.equals("none")) {
+                        String folderPath = FilterHelper.getFilterDirectory(mActivity) + File.separator + resourceData.unzipFolder;
+                        DynamicColor color = null;
+                        try {
+                            color = ResourceJsonCodec.decodeFilterData(folderPath);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        PreviewRenderer.getInstance().changeDynamicFilter(color);
+                    } else {
+                        PreviewRenderer.getInstance().changeDynamicFilter(null);
+                    }
                     mCurrentFilterIndex = mFilterAdapter.getSelectedPosition();
                 }
             });
@@ -461,4 +475,3 @@ public class PreviewEffectFragment extends Fragment implements View.OnClickListe
     }
 
 }
-

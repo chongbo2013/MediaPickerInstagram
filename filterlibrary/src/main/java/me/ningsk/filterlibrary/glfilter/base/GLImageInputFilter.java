@@ -2,23 +2,20 @@ package me.ningsk.filterlibrary.glfilter.base;
 
 import android.content.Context;
 
+import me.ningsk.filterlibrary.glfilter.utils.OpenGLUtils;
+
+
 /**
- * 加载一张图片，需要倒过来
+ * <p>描述：加载一张图片，需要倒过来<p>
+ * 作者：ningsk<br>
+ * 日期：2018/11/7 10 12<br>
+ * 版本：v1.0<br>
  */
 public class GLImageInputFilter extends GLImageFilter {
 
-    private static final String VERTEX_SHADER = "" +
-            "uniform mat4 uMVPMatrix;                                              \n" +
-            "attribute vec4 aPosition;                                             \n" +
-            "attribute vec4 aTextureCoord;                                         \n" +
-            "varying vec2 textureCoordinate;                                       \n" +
-            "void main() {                                                         \n" +
-            "    gl_Position = uMVPMatrix * aPosition;                             \n" +
-            "    textureCoordinate = vec2(aTextureCoord.x, 1.0 - aTextureCoord.y); \n" +
-            "}                                                                     \n";
-
     public GLImageInputFilter(Context context) {
-        this(context, VERTEX_SHADER, FRAGMENT_SHADER_2D);
+        this(context, VERTEX_SHADER, OpenGLUtils.getShaderFromAssets(context,
+                "shader/base/fragment_image_input.glsl"));
     }
 
     public GLImageInputFilter(Context context, String vertexShader, String fragmentShader) {

@@ -13,10 +13,10 @@ import java.nio.ByteBuffer;
 import me.ningsk.cameralibrary.engine.camera.CameraEngine;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.recorder.HardcodeEncoder;
-import me.ningsk.cameralibrary.engine.render.RenderHandler;
 import me.ningsk.filterlibrary.gles.EglCore;
 import me.ningsk.filterlibrary.gles.WindowSurface;
-import me.ningsk.filterlibrary.glfilter.utils.GLImageFilterType;
+import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColor;
+import me.ningsk.filterlibrary.glfilter.stickers.bean.DynamicSticker;
 import me.ningsk.filterlibrary.glfilter.utils.OpenGLUtils;
 
 /**
@@ -272,12 +272,32 @@ class RenderThread extends HandlerThread implements SurfaceTexture.OnFrameAvaila
     }
 
     /**
-     * 更新filter
-     * @param type Filter类型
+     * 切换动态滤镜
+     * @param color
      */
-    void changeFilter(GLImageFilterType type) {
+    void changeDynamicFilter(DynamicColor color) {
         synchronized (mSynOperation) {
-            mRenderManager.changeFilter(mContext, type);
+            mRenderManager.changeDynamicFilter(color);
+        }
+    }
+
+    /**
+     * 切换动态资源
+     * @param color
+     */
+    void changeDynamicResource(DynamicColor color) {
+        synchronized (mSynOperation) {
+            mRenderManager.changeDynamicResource(color);
+        }
+    }
+
+    /**
+     * 切换动态资源
+     * @param sticker
+     */
+    void changeDynamicResource(DynamicSticker sticker) {
+        synchronized (mSynOperation) {
+            mRenderManager.changeDynamicResource(sticker);
         }
     }
 

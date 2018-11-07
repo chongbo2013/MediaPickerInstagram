@@ -116,4 +116,3 @@ public class PreviewBeautyAdapter extends RecyclerView.Adapter<PreviewBeautyAdap
         return mSelected;
     }
 }
-

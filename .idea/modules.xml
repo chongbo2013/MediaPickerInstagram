@@ -13,8 +13,10 @@
       <module fileurl="file://$PROJECT_DIR$/imagelibrary/imagelibrary.iml" filepath="$PROJECT_DIR$/imagelibrary/imagelibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" filepath="$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" filepath="$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/videocompressorlibrary/videocompressorlibrary.iml" filepath="$PROJECT_DIR$/videocompressorlibrary/videocompressorlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/videocroplibrary/videocroplibrary.iml" filepath="$PROJECT_DIR$/videocroplibrary/videocroplibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/videolibrary/videolibrary.iml" filepath="$PROJECT_DIR$/videolibrary/videolibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/videotracklibrary/videotracklibrary.iml" filepath="$PROJECT_DIR$/videotracklibrary/videotracklibrary.iml" />
     </modules>
   </component>
 </project>

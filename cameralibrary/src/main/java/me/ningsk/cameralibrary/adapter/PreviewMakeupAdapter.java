@@ -110,4 +110,3 @@ public class PreviewMakeupAdapter extends RecyclerView.Adapter<PreviewMakeupAdap
         return mSelected;
     }
 }
-

@@ -3,14 +3,13 @@ package me.ningsk.filterlibrary.glfilter.base;
 import android.content.Context;
 import android.opengl.GLES30;
 
-
-
 import java.nio.ShortBuffer;
 
-import me.ningsk.filterlibrary.glfilter.utils.OpenGLUtils;
-
 /**
- * 使用glDrawElements绘制的基类滤镜
+ * <p>描述：使用glDrawElements绘制的基类滤镜<p>
+ * 作者：ningsk<br>
+ * 日期：2018/11/7 10 12<br>
+ * 版本：v1.0<br>
  */
 public class GLImageDrawElementsFilter extends GLImageFilter {
 
@@ -27,22 +26,22 @@ public class GLImageDrawElementsFilter extends GLImageFilter {
         super(context, vertexShader, fragmentShader);
     }
 
-    @Override
-    protected void initBuffers() {
-        mVertexBuffer = OpenGLUtils.createFloatBuffer(Vertices);
-        mTextureBuffer = OpenGLUtils.createFloatBuffer(Textures);
-        mIndexBuffer = OpenGLUtils.createShortBuffer(Indices);
-        mIndexSize = mIndexBuffer.capacity();
-    }
-
-    @Override
-    protected void releaseBuffers() {
-        super.releaseBuffers();
-        if (mIndexBuffer != null) {
-            mIndexBuffer.clear();
-            mIndexBuffer = null;
-        }
-    }
+//    @Override
+//    protected void initBuffers() {
+//        mVertexBuffer = OpenGLUtils.createFloatBuffer(Vertices);
+//        mTextureBuffer = OpenGLUtils.createFloatBuffer(Textures);
+//        mIndexBuffer = OpenGLUtils.createShortBuffer(Indices);
+//        mIndexSize = mIndexBuffer.capacity();
+//    }
+//
+//    @Override
+//    protected void releaseBuffers() {
+//        super.releaseBuffers();
+//        if (mIndexBuffer != null) {
+//            mIndexBuffer.clear();
+//            mIndexBuffer = null;
+//        }
+//    }
 
     @Override
     protected void onDrawFrame() {

@@ -242,8 +242,7 @@ public final class FaceTracker {
         private SensorEventUtil mSensorUtil;
 
         private Looper mLooper;
-        private @Nullable
-        Handler mHandler;
+        private @Nullable Handler mHandler;
 
         public TrackerThread(String name) {
             super(name);
@@ -478,6 +477,14 @@ public final class FaceTracker {
                     oneFace.pitch = face.pitch;
                     oneFace.yaw = face.yaw;
                     oneFace.roll = face.roll;
+                    if (faceTrackParam.previewTrack) {
+
+                        if (faceTrackParam.isBackCamera) {
+                            oneFace.roll = (float) (Math.PI / 2.0f + oneFace.roll);
+                        } else {
+                            oneFace.roll = (float) (Math.PI / 2.0f - face.roll);
+                        }
+                    }
                     oneFace.confidence = face.confidence;
 
                     // 预览状态下，宽高交换
@@ -497,25 +504,25 @@ public final class FaceTracker {
                         // orientation = 0、3 表示竖屏，1、2 表示横屏
                         float x = (face.points[i].x / height) * 2 - 1;
                         float y = (face.points[i].y / width) * 2 - 1;
-                        float[] point = new float[] {-x, -y};
+                        float[] point = new float[] {x, -y};
                         if (orientation == 1) {
                             if (faceTrackParam.previewTrack && faceTrackParam.isBackCamera) {
-                                point[0] = y;
+                                point[0] = -y;
                                 point[1] = -x;
                             } else {
-                                point[0] = -y;
+                                point[0] = y;
                                 point[1] = x;
                             }
                         } else if (orientation == 2) {
                             if (faceTrackParam.previewTrack && faceTrackParam.isBackCamera) {
-                                point[0] = -y;
+                                point[0] = y;
                                 point[1] = x;
                             } else {
-                                point[0] = y;
+                                point[0] = -y;
                                 point[1] = -x;
                             }
                         } else if (orientation == 3) {
-                            point[0] = x;
+                            point[0] = -x;
                             point[1] = y;
                         }
                         // 顶点坐标
@@ -544,4 +551,3 @@ public final class FaceTracker {
     }
 
 }
-

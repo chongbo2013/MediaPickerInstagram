@@ -677,4 +677,3 @@ public class CameraEngine {
         return guess;
     }
 }
-

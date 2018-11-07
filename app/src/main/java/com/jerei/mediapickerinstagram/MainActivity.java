@@ -14,6 +14,8 @@ import me.ningsk.cameralibrary.engine.model.AspectRatio;
 import me.ningsk.cameralibrary.engine.model.GalleryType;
 import me.ningsk.cameralibrary.listener.OnGallerySelectedListener;
 import me.ningsk.cameralibrary.listener.OnPreviewCaptureListener;
+import me.ningsk.filterlibrary.glfilter.resource.FilterHelper;
+import me.ningsk.filterlibrary.glfilter.resource.ResourceHelper;
 import me.ningsk.imagelibrary.activity.ImageEditActivity;
 import me.ningsk.mediascanlibrary.config.MimeType;
 import me.ningsk.mediascanlibrary.config.PhotoSelectorConfig;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         checkPermissions();
         initView();
+        initResources();
     }
 
     private void checkPermissions() {
@@ -52,9 +55,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mBtnCamera = findViewById(R.id.btn_camera);
+        mBtnCamera = (Button) findViewById(R.id.btn_camera);
         mBtnCamera.setOnClickListener(this);
-        mBtnEdit = findViewById(R.id.btn_edit);
+        mBtnEdit = (Button) findViewById(R.id.btn_edit);
         mBtnEdit.setOnClickListener(this);
     }
 
@@ -74,13 +77,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
+     * 初始化动态贴纸、滤镜等资源
+     */
+    private void initResources() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ResourceHelper.initAssetsResource(MainActivity.this);
+                FilterHelper.initAssetsFilter(MainActivity.this);
+            }
+        }).start();
+    }
+
+    /**
      * 打开预览页面
      */
     private void previewCamera() {
         PreviewEngine.from(this)
-                .setCameraRatio(AspectRatio.RATIO_1_1)
+                .setCameraRatio(AspectRatio.RATIO_16_9)
                 .showFacePoints(false)
-                .showFps(false)
+                .showFps(true)
                 .setGalleryListener(new OnGallerySelectedListener() {
                     @Override
                     public void onGalleryClickListener(GalleryType type) {
