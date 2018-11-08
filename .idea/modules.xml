@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MediaPickerInstagram.iml" filepath="$PROJECT_DIR$/MediaPickerInstagram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MediaPickerInstagram.iml" filepath="$PROJECT_DIR$/.idea/MediaPickerInstagram.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/cameralibrary/cameralibrary.iml" filepath="$PROJECT_DIR$/cameralibrary/cameralibrary.iml" />
