@@ -15,15 +15,9 @@ import android.widget.ImageView;
 
 import me.ningsk.cameralibrary.R;
 
-/**
- * <p>描述：<p>
- * 作者：ningsk<br>
- * 日期：2018/10/30 18 18<br>
- * 版本：<br>
- */
 public class JRSurfaceView extends SurfaceView {
 
-    private static final String TAG = "CainSurfaceView";
+    private static final String TAG = "JRSurfaceView";
     private static final boolean VERBOSE = false;
 
     // 单击时点击的位置

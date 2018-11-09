@@ -13,7 +13,7 @@ import me.ningsk.filterlibrary.glfilter.utils.OpenGLUtils;
 import me.ningsk.filterlibrary.glfilter.utils.TextureRotationUtils;
 
 /**
- * <p>描述：j基类滤镜<p>
+ * <p>描述：基类滤镜<p>
  * 作者：ningsk<br>
  * 日期：2018/11/7 10 12<br>
  * 版本：v1.0<br>
