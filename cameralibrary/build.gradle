@@ -9,6 +9,7 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -35,6 +36,7 @@ dependencies {
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["support-annotations"]
     api rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["glide"]
     implementation project(':filterlibrary')
     implementation project(':landmarklibrary')

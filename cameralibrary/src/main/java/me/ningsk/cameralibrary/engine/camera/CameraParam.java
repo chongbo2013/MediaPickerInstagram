@@ -36,6 +36,7 @@ public final class CameraParam {
     // 这里反过来是因为相机的分辨率跟屏幕的分辨率宽高刚好反过来
     public static final float Ratio_4_3 = 0.75f;
     public static final float Ratio_16_9 = 0.5625f;
+    public static final float Ratio_1_1 = 1f;
 
     // 对焦权重最大值
     public static final int Weight =  100;
@@ -182,10 +183,14 @@ public final class CameraParam {
             expectWidth = DEFAULT_16_9_WIDTH;
             expectHeight = DEFAULT_16_9_HEIGHT;
             currentRatio = Ratio_16_9;
-        } else {
+        } else if (aspectRatio == AspectRatio.RATIO_4_3){
             expectWidth = DEFAULT_4_3_WIDTH;
             expectHeight = DEFAULT_4_3_HEIGHT;
             currentRatio = Ratio_4_3;
+        } else if (aspectRatio == AspectRatio.RATIO_1_1) {
+            expectWidth = DEFAULT_4_3_WIDTH;
+            expectHeight = DEFAULT_4_3_HEIGHT;
+            currentRatio = Ratio_1_1;
         }
     }
 

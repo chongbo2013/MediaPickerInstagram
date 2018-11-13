@@ -6,8 +6,6 @@
         <activity
             android:name=".activity.CameraActivity"
             android:theme="@style/NoActionBarTheme" />
-        <activity android:name=".activity.CameraSettingActivity" />
-        <activity android:name=".activity.WatermarkActivity"></activity>
     </application>
 
 </manifest>

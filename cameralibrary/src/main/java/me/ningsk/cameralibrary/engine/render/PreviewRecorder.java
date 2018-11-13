@@ -155,7 +155,7 @@ public final class PreviewRecorder {
             throw new IllegalArgumentException("Video output path must not be empty");
         }
 
-        // 初始化录制器
+        // 初始化录制器z
         HardcodeEncoder.getInstance()
                 .preparedRecorder()
                 .setOutputPath(mOutputPath)

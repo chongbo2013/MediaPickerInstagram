@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.CapturePhotoFragment">
+
+    <!-- 预览视图 -->
+    <me.ningsk.cameralibrary.widget.AspectFrameLayout
+        android:id="@+id/layout_aspect"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/preview_view_height"
+        android:background="@color/white">
+
+        <me.ningsk.cameralibrary.widget.JRSurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <ImageView
+            android:id="@+id/btn_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="@dimen/bottom_layout_margin"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_camera_switch_camera" />
+
+        <ImageView
+            android:id="@+id/btn_flash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/bottom_layout_margin"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_camera_flash_auto" />
+    </me.ningsk.cameralibrary.widget.AspectFrameLayout>
+
+    <!-- 底部按钮 -->
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/view_preview_bottom" />
+
+</LinearLayout>

@@ -117,10 +117,11 @@ public class ShutterButton extends View {
 
     private void init() {
 
-        // 设置外圆背景颜色
-        mOuterBackgroundColor = getResources().getColor(R.color.shutter_gray_dark);
+        // 设置外圆背
+        // 景颜色
+        mOuterBackgroundColor = getResources().getColor(R.color.shutter_gray_light);
         // 设置内圆背景
-        mInnerBackgroundColor = getResources().getColor(R.color.shutter_green);
+        mInnerBackgroundColor = getResources().getColor(R.color.shutter_white);
 
         // 填充背景的Paint
         mFillPaint = new Paint();
@@ -129,7 +130,7 @@ public class ShutterButton extends View {
         // 设置进度条颜色
         mOuterStrokeColor = getResources().getColor(R.color.shutter_blue);
         // 设置进度条宽度
-        mStrokeWidth = getResources().getDimension(R.dimen.dp6);
+        mStrokeWidth = getResources().getDimension(R.dimen.dp10);
         // 进度条的Paint
         mPaintProgress = new Paint();
         mPaintProgress.setAntiAlias(true);

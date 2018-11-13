@@ -17,7 +17,5 @@ public interface OnPageOperationListener {
     // 打开视频编辑页面
     void onOpenVideoEditPage(String path);
 
-    // 打开相机设置页面
-    void onOpenCameraSettingPage();
 }
 

@@ -51,6 +51,9 @@ public class CameraEngine {
         if (CameraParam.getInstance().currentRatio == CameraParam.Ratio_4_3) {
             width = CameraParam.DEFAULT_4_3_WIDTH;
             height = CameraParam.DEFAULT_4_3_HEIGHT;
+        } else if (CameraParam.getInstance().currentRatio == CameraParam.Ratio_1_1) {
+            width = CameraParam.DEFAULT_4_3_WIDTH;
+            height = CameraParam.DEFAULT_4_3_HEIGHT;
         }
         openCamera(context, CameraParam.getInstance().cameraId, expectFps, width, height);
     }

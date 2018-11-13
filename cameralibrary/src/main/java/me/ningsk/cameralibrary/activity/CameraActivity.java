@@ -1,17 +1,26 @@
 package me.ningsk.cameralibrary.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
+
 import me.ningsk.cameralibrary.R;
+import me.ningsk.cameralibrary.adapter.ViewPagerAdapter;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.model.GalleryType;
-import me.ningsk.cameralibrary.fragment.CameraPreviewFragment;
+import me.ningsk.cameralibrary.fragment.CapturePhotoFragment;
+import me.ningsk.cameralibrary.fragment.CaptureVideoFragment;
+import me.ningsk.cameralibrary.fragment.GalleryPickerFragment;
 import me.ningsk.cameralibrary.listener.OnPageOperationListener;
+import me.ningsk.cameralibrary.widget.ToolbarView;
 import me.ningsk.facedetectlibrary.FaceTracker;
 
 /**
@@ -22,7 +31,9 @@ import me.ningsk.facedetectlibrary.FaceTracker;
  */
 public class CameraActivity extends AppCompatActivity implements OnPageOperationListener {
 
-    private static final String FRAGMENT_CAMERA = "fragment_camera";
+    private TabLayout mMainTabLayout;
+    private ViewPager mMainViewPager;
+    private ToolbarView mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +43,15 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera);
         if (null == savedInstanceState) {
-            CameraPreviewFragment fragment = new CameraPreviewFragment();
-            fragment.setOnPageOperationListener(this);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, fragment, FRAGMENT_CAMERA)
-                    .addToBackStack(FRAGMENT_CAMERA)
-                    .commit();
+            mMainTabLayout = findViewById(R.id.mMainTabLayout);
+            mMainViewPager = findViewById(R.id.mMainViewPager);
+            mToolbar = findViewById(R.id.mToolbar);
+            mMainTabLayout.setSelectedTabIndicatorHeight(0);
+            final ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getListFragment());
+            mMainViewPager.setAdapter(pagerAdapter);
+            mMainTabLayout.addOnTabSelectedListener(getViewPagerOnTabSelectedListener());
+            mMainViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mMainTabLayout));
+            mMainViewPager.setCurrentItem(0);
         }
         faceTrackerRequestNetwork();
     }
@@ -64,21 +77,7 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
 
     @Override
     public void onBackPressed() {
-        // 判断fragment栈中的个数，如果只有一个，则表示当前只处于预览主页面点击返回状态
-        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-        if (backStackEntryCount > 1) {
-            getSupportFragmentManager().popBackStack();
-        } else if (backStackEntryCount == 1) {
-            CameraPreviewFragment fragment = (CameraPreviewFragment) getSupportFragmentManager()
-                    .findFragmentByTag(FRAGMENT_CAMERA);
-            if (fragment != null) {
-                if (!fragment.onBackPressed()) {
-                    finish();
-                }
-            }
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     @Override
@@ -102,9 +101,53 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
         }
     }
 
-    @Override
-    public void onOpenCameraSettingPage() {
-        Intent intent = new Intent(CameraActivity.this, CameraSettingActivity.class);
-        startActivity(intent);
+    private TabLayout.ViewPagerOnTabSelectedListener getViewPagerOnTabSelectedListener() {
+        return new TabLayout.ViewPagerOnTabSelectedListener(mMainViewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                displayTitleByTab(tab);
+                initNextButtonByTab(tab.getPosition());
+            }
+        };
     }
+
+    private void displayTitleByTab(TabLayout.Tab tab) {
+        if (tab.getText() != null) {
+            String title = tab.getText().toString();
+//            mToolbar.setTitle(title);
+        }
+    }
+
+    private void initNextButtonByTab(int position) {
+        switch (position) {
+            case 0:
+//                mToolbar.showNext();
+                break;
+            case 1:
+//                mToolbar.hideNext();
+                break;
+            case 2:
+//                mToolbar.hideNext();
+                break;
+            default:
+//                mToolbar.hideNext();
+                break;
+        }
+    }
+
+
+    private ArrayList<Fragment> getListFragment() {
+        String[] galleryIndicator = getResources().getStringArray(R.array.gallery_indicator);
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new GalleryPickerFragment());
+        mMainTabLayout.addTab(mMainTabLayout.newTab().setText(galleryIndicator[0]));
+        fragments.add(new CapturePhotoFragment());
+        mMainTabLayout.addTab(mMainTabLayout.newTab().setText(galleryIndicator[1]));
+//        fragments.add(new CaptureVideoFragment());
+//        mMainTabLayout.addTab(mMainTabLayout.newTab().setText(galleryIndicator[2]));
+        return fragments;
+    }
+
+
 }
