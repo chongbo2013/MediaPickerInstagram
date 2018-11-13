@@ -87,7 +87,7 @@ public class ToolbarView extends RelativeLayout implements View.OnClickListener{
     @Override
     public void onClick(View v) {
        int id = v.getId();
-       if (id == R.id.tv_cancel && mOnClickBackListener != null) {
+       if (id == R.id.tv_back && mOnClickBackListener != null) {
            mOnClickBackListener.get().onClickBack();
        } else if (id == R.id.tv_title && mOnClickTitleListener != null) {
            mOnClickTitleListener.get().onClickTitle();

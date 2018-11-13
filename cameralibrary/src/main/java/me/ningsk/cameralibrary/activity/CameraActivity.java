@@ -29,7 +29,8 @@ import me.ningsk.facedetectlibrary.FaceTracker;
  * 日期：2018/10/30 17 11<br>
  * 版本：v1.0<br>
  */
-public class CameraActivity extends AppCompatActivity implements OnPageOperationListener {
+public class CameraActivity extends AppCompatActivity implements OnPageOperationListener, ToolbarView.OnClickBackListener,
+        ToolbarView.OnClickTitleListener, ToolbarView.OnClickNextListener{
 
     private TabLayout mMainTabLayout;
     private ViewPager mMainViewPager;
@@ -38,14 +39,17 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_camera);
         if (null == savedInstanceState) {
             mMainTabLayout = findViewById(R.id.mMainTabLayout);
             mMainViewPager = findViewById(R.id.mMainViewPager);
             mToolbar = findViewById(R.id.mToolbar);
+            mToolbar.setOnClickBackListener(this);
+            mToolbar.setOnClickTitleListener(this);
+            mToolbar.setOnClickNextListener(this);
             mMainTabLayout.setSelectedTabIndicatorHeight(0);
             final ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getListFragment());
             mMainViewPager.setAdapter(pagerAdapter);
@@ -115,23 +119,23 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
     private void displayTitleByTab(TabLayout.Tab tab) {
         if (tab.getText() != null) {
             String title = tab.getText().toString();
-//            mToolbar.setTitle(title);
+            mToolbar.setTitle(title);
         }
     }
 
     private void initNextButtonByTab(int position) {
         switch (position) {
             case 0:
-//                mToolbar.showNext();
+                mToolbar.showNext();
                 break;
             case 1:
-//                mToolbar.hideNext();
+                mToolbar.hideNext();
                 break;
             case 2:
-//                mToolbar.hideNext();
+                mToolbar.hideNext();
                 break;
             default:
-//                mToolbar.hideNext();
+                mToolbar.hideNext();
                 break;
         }
     }
@@ -150,4 +154,18 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
     }
 
 
+    @Override
+    public void onClickBack() {
+
+    }
+
+    @Override
+    public void onClickNext() {
+
+    }
+
+    @Override
+    public void onClickTitle() {
+
+    }
 }
