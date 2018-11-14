@@ -7,5 +7,5 @@ package me.ningsk.videotracklibrary.interfaces;
  * 版本：v1.0<br>
  */
 public interface VideoCompressListener {
-    void onDestroy();
+
 }
