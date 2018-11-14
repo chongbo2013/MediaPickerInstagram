@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.ningsk.baselibrary.utils.FileUtils;
-import me.ningsk.baselibrary.utils.StringUtils;
+import me.ningsk.utilslibrary.utils.FileUtils;
+import me.ningsk.utilslibrary.utils.StringUtils;
 import me.ningsk.cameralibrary.engine.listener.OnRecordListener;
 import me.ningsk.cameralibrary.engine.recorder.HardcodeEncoder;
 import me.ningsk.cameralibrary.engine.recorder.RecordItem;

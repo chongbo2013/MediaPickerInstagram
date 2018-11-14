@@ -16,7 +16,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import me.ningsk.baselibrary.utils.RectUtils;
+import me.ningsk.utilslibrary.utils.RectUtils;
 import me.ningsk.imagelibrary.R;
 
 /**

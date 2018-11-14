@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import me.ningsk.baselibrary.utils.FileUtils;
+import me.ningsk.utilslibrary.utils.FileUtils;
 import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColor;
 import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColorData;
 import me.ningsk.filterlibrary.glfilter.stickers.bean.DynamicSticker;

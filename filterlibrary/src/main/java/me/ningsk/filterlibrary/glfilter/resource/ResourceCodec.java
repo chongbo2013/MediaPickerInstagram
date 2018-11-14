@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import me.ningsk.baselibrary.utils.FileUtils;
+import me.ningsk.utilslibrary.utils.FileUtils;
 
 /**
  * <p>描述：资源解码器<p>

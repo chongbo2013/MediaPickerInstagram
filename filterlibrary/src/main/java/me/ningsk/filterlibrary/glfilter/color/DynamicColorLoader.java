@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-import me.ningsk.baselibrary.utils.BitmapUtils;
+import me.ningsk.utilslibrary.utils.BitmapUtils;
 import me.ningsk.filterlibrary.glfilter.color.bean.DynamicColorData;
 import me.ningsk.filterlibrary.glfilter.resource.ResourceCodec;
 import me.ningsk.filterlibrary.glfilter.resource.ResourceDataCodec;

@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import me.ningsk.baselibrary.utils.PermissionUtils;
+import me.ningsk.utilslibrary.utils.PermissionUtils;
 import me.ningsk.cameralibrary.engine.PreviewEngine;
 import me.ningsk.cameralibrary.engine.model.AspectRatio;
 import me.ningsk.cameralibrary.engine.model.GalleryType;

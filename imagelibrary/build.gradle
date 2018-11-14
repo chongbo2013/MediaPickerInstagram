@@ -40,7 +40,7 @@ dependencies {
     }
 
     api rootProject.ext.dependencies["support-annotations"]
-    implementation project(':baselibrary')
+    implementation project(':utilslibrary')
     implementation project(':filterlibrary')
 }
 

@@ -20,11 +20,11 @@ import android.widget.LinearLayout;
 
 import java.io.File;
 
-import me.ningsk.baselibrary.fragment.BackPressedDialogFragment;
-import me.ningsk.baselibrary.fragment.PermissionConfirmDialogFragment;
-import me.ningsk.baselibrary.fragment.PermissionErrorDialogFragment;
-import me.ningsk.baselibrary.utils.BitmapUtils;
-import me.ningsk.baselibrary.utils.PermissionUtils;
+import me.ningsk.utilslibrary.fragment.BackPressedDialogFragment;
+import me.ningsk.utilslibrary.fragment.PermissionConfirmDialogFragment;
+import me.ningsk.utilslibrary.fragment.PermissionErrorDialogFragment;
+import me.ningsk.utilslibrary.utils.BitmapUtils;
+import me.ningsk.utilslibrary.utils.PermissionUtils;
 import me.ningsk.imagelibrary.R;
 
 

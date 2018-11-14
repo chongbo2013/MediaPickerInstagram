@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.ningsk.baselibrary.utils.FileUtils;
+import me.ningsk.utilslibrary.utils.FileUtils;
 import me.ningsk.filterlibrary.glfilter.resource.bean.ResourceData;
 import me.ningsk.filterlibrary.glfilter.resource.bean.ResourceType;
 

@@ -9,7 +9,7 @@ import android.util.Pair;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-import me.ningsk.baselibrary.utils.BitmapUtils;
+import me.ningsk.utilslibrary.utils.BitmapUtils;
 import me.ningsk.filterlibrary.glfilter.resource.ResourceCodec;
 import me.ningsk.filterlibrary.glfilter.resource.ResourceIndexCodec;
 import me.ningsk.filterlibrary.glfilter.stickers.bean.DynamicStickerData;

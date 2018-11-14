@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-import me.ningsk.baselibrary.utils.StateType;
+import me.ningsk.utilslibrary.utils.StateType;
 
 /**
  * <p>描述：音频播放器<p>

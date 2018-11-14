@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import me.ningsk.baselibrary.utils.BitmapUtils;
+import me.ningsk.utilslibrary.utils.BitmapUtils;
 import me.ningsk.filterlibrary.glfilter.resource.bean.ResourceData;
 import me.ningsk.videolibrary.R;
 

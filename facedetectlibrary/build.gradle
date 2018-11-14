@@ -28,7 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':landmarklibrary')
-    implementation project(':baselibrary')
+    implementation project(':utilslibrary')
     implementation(name: 'MGFaceppSDK-0.4.7', ext: 'aar')
     implementation(name: 'MGLicenseManagerSDK-0.3.0', ext: 'aar')
 }

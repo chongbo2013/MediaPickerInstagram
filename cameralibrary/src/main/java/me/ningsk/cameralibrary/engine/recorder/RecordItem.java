@@ -3,7 +3,7 @@ package me.ningsk.cameralibrary.engine.recorder;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import me.ningsk.baselibrary.utils.FileUtils;
+import me.ningsk.utilslibrary.utils.FileUtils;
 
 /**
  * <p>描述：分段录制信息<p>

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGL11;
 
-import me.ningsk.baselibrary.utils.BitmapUtils;
+import me.ningsk.utilslibrary.utils.BitmapUtils;
 
 
 public class OpenGLUtils {

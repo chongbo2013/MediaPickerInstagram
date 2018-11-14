@@ -43,6 +43,6 @@ dependencies {
 
     api rootProject.ext.dependencies["glide"]
 
-    implementation project(':baselibrary')
+    implementation project(':utilslibrary')
     implementation project(':filterlibrary')
 }

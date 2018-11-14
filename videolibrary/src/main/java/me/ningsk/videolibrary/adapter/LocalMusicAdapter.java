@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import me.ningsk.baselibrary.utils.StringUtils;
+import me.ningsk.utilslibrary.utils.StringUtils;
 import me.ningsk.videolibrary.R;
 import me.ningsk.videolibrary.bean.Music;
 
