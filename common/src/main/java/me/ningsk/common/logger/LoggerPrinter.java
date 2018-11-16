@@ -138,13 +138,13 @@ public final class LoggerPrinter
         try {
             if (json.startsWith("{")) {
                 JSONObject jsonObject = new JSONObject(json);
-                String message = jsonObject.toString(4);
+                String message = jsonObject.toString(JSON_INDENT);
                 d(message, new Object[0]);
                 return;
             }
             if (json.startsWith("[")) {
                 JSONArray jsonArray = new JSONArray(json);
-                String message = jsonArray.toString(4);
+                String message = jsonArray.toString(JSON_INDENT);
                 d(message, new Object[0]);
             }
         } catch (JSONException e) {
@@ -192,7 +192,7 @@ public final class LoggerPrinter
 
         byte[] bytes = message.getBytes();
         int length = bytes.length;
-        if (length <= 4000) {
+        if (length <= CHUNK_SIZE) {
             if (methodCount > 0) {
                 logDivider(logType, tag);
             }
@@ -203,8 +203,8 @@ public final class LoggerPrinter
         if (methodCount > 0) {
             logDivider(logType, tag);
         }
-        for (int i = 0; i < length; i += 4000) {
-            int count = Math.min(length - i, 4000);
+        for (int i = 0; i < length; i += CHUNK_SIZE) {
+            int count = Math.min(length - i, CHUNK_SIZE);
 
             logContent(logType, tag, new String(bytes, i, count));
         }

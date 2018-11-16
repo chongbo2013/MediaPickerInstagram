@@ -21,8 +21,8 @@ public final class AESCoder
     private static SecretKeySpec generateKey(String password)
             throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] bytes = password.getBytes("UTF-8");
+        MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
+        byte[] bytes = password.getBytes(CHARSET);
         digest.update(bytes, 0, bytes.length);
         byte[] key = digest.digest();
 
@@ -36,7 +36,7 @@ public final class AESCoder
         try
         {
             SecretKeySpec key = generateKey(password);
-            byte[] cipherText = encrypt(key, ivBytes, message.getBytes("UTF-8"));
+            byte[] cipherText = encrypt(key, ivBytes, message.getBytes(CHARSET));
 
             return Base64.encodeToString(cipherText, 2);
         }
@@ -48,7 +48,7 @@ public final class AESCoder
     public static byte[] encrypt(SecretKeySpec key, byte[] iv, byte[] message)
             throws GeneralSecurityException
     {
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+        Cipher cipher = Cipher.getInstance(AES_MODE);
         IvParameterSpec ivSpec = new IvParameterSpec(iv);
         cipher.init(1, key, ivSpec);
         byte[] cipherText = cipher.doFinal(message);
@@ -64,7 +64,7 @@ public final class AESCoder
             SecretKeySpec key = generateKey(password);
             byte[] decodedCipherText = Base64.decode(base64EncodedCipherText, 2);
             byte[] decryptedBytes = decrypt(key, ivBytes, decodedCipherText);
-            return new String(decryptedBytes, "UTF-8");
+            return new String(decryptedBytes, CHARSET);
         }
         catch (UnsupportedEncodingException e) {
             throw new GeneralSecurityException(e);
@@ -74,7 +74,7 @@ public final class AESCoder
     public static byte[] decrypt(SecretKeySpec key, byte[] iv, byte[] decodedCipherText)
             throws GeneralSecurityException
     {
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+        Cipher cipher = Cipher.getInstance(AES_MODE);
         IvParameterSpec ivSpec = new IvParameterSpec(iv);
         cipher.init(2, key, ivSpec);
         byte[] decryptedBytes = cipher.doFinal(decodedCipherText);

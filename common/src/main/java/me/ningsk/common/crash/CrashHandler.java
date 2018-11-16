@@ -82,7 +82,7 @@ public class CrashHandler
                 // 如果处理了，让程序继续运行3s再推出，保证文件保存并上传到服务器
                 Thread.sleep(3000L);
             } catch (InterruptedException ex) {
-                Log.e("CrashHandler", "error : ", ex);
+                Log.e(TAG, "error : ", ex);
             }
             // 退出程序
             Process.killProcess(Process.myPid());
@@ -101,13 +101,13 @@ public class CrashHandler
             return false;
         }
         // 手机设备参数信息
-        collectDeviceInfo(this.mContext);
+        collectDeviceInfo(mContext);
 
         new Thread()
         {
             public void run() {
                 Looper.prepare();
-                Toast.makeText(CrashHandler.this.mContext, "很抱歉,程序出现异常,即将退出.", 0).show();
+                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.", Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
         }.start();
@@ -178,11 +178,11 @@ public class CrashHandler
             String time = this.formatter.format(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".log";
             if (Environment.getExternalStorageState().equals("mounted")) {
-                File dir = new File("/mnt/sdcard/crash/");
+                File dir = new File(CRASH_PATH);
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-                FileOutputStream fos = new FileOutputStream("/mnt/sdcard/crash/" + fileName);
+                FileOutputStream fos = new FileOutputStream(CRASH_PATH + fileName);
                 fos.write(sb.toString().getBytes());
 
                 fos.close();

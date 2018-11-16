@@ -35,8 +35,6 @@ import javax.microedition.khronos.egl.EGL11;
 public class JROpenGLUtils {
     public static final String TAG = "OpenGLUtils";
 
-    // 从初始化失败
-    public static final int GL_NOT_INIT = -1;
     // 没有Texture
     public static final int GL_NOT_TEXTURE = -1;
 

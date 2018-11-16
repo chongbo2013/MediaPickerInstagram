@@ -82,7 +82,7 @@ public class EGLCore
                     (!Build.MODEL
                             .equals("M355")) ||
                             (Build.VERSION.SDK_INT != 19))) {
-                attribList[(attribList.length - 3)] = 12610;
+                attribList[(attribList.length - 3)] = EGL_RECORDABLE_ANDROID;
                 attribList[(attribList.length - 2)] = 1;
             } else {
                 Log.d(TAG, "Extensions = " + this.mEglExtensions);
