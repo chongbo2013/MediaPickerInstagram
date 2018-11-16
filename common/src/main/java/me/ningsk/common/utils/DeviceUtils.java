@@ -172,20 +172,24 @@ public class DeviceUtils
         ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
 
         List lists = am.getRunningAppProcesses();
-        for (ActivityManager.RunningAppProcessInfo info : lists) {
-            if (info.processName.equals(proessName)) {
-                isRunning = true;
+        Iterator iterator = lists.iterator();
+        ActivityManager.RunningAppProcessInfo info;
+        do {
+            if (!iterator.hasNext()) {
                 return isRunning;
             }
-        }
-
+            info = (ActivityManager.RunningAppProcessInfo)iterator.next();
+        } while (!info.processName.equals(proessName));
+        isRunning = true;
         return isRunning;
+
     }
 
+    @SuppressLint("MissingPermission")
     public static String getIMEI(Context context)
     {
         TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        String imei = tm.getDeviceId();
+         String imei = tm.getDeviceId();
         if (StringUtils.isEmpty(imei)) {
             imei = "";
         }
@@ -369,9 +373,9 @@ public class DeviceUtils
             return false;
         }
 
-        Intent resolveIntent = new Intent("android.intent.action.MAIN", null);
-        resolveIntent.addCategory("android.intent.category.LAUNCHER");
-        resolveIntent.setFlags(131072);
+        Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
+        resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        resolveIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
         resolveIntent.setPackage(pi.packageName);
 
@@ -382,9 +386,9 @@ public class DeviceUtils
             String packageName1 = ri.activityInfo.packageName;
             String className = ri.activityInfo.name;
 
-            Intent intent = new Intent("android.intent.action.MAIN");
-            intent.addCategory("android.intent.category.LAUNCHER");
-            intent.setFlags(270532608);
+            Intent intent = new Intent(Intent.ACTION_MAIN, null);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 
             ComponentName cn = new ComponentName(packageName1, className);
 
@@ -423,12 +427,15 @@ public class DeviceUtils
         return imm.isActive();
     }
 
-    public static void goHome(Context context)
-    {
-        Intent mHomeIntent = new Intent("android.intent.action.MAIN");
-        mHomeIntent.addCategory("android.intent.category.HOME");
-        mHomeIntent.addFlags(270532608);
-
+    /**
+     * 主动回到Home，后台运行
+     * @param context
+     */
+    public static void goHome(Context context) {
+        Intent mHomeIntent = new Intent(Intent.ACTION_MAIN);
+        mHomeIntent.addCategory(Intent.CATEGORY_HOME);
+        mHomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         context.startActivity(mHomeIntent);
     }
 
@@ -511,7 +518,7 @@ public class DeviceUtils
         try
         {
             TelephonyManager telephony = (TelephonyManager)context
-                    .getSystemService("phone");
+                    .getSystemService(Context.TELEPHONY_SERVICE);
 
             if (telephony.getPhoneType() == 0) {
                 return false;
@@ -524,12 +531,14 @@ public class DeviceUtils
         return false;
     }
 
+    @SuppressLint("MissingPermission")
     public static String getPhoneNum(Context c)
     {
         String phoneNum = null;
         if (isPhone(c)) {
             try
             {
+                @SuppressLint("ServiceCast")
                 TelephonyManager telephony = (TelephonyManager)c
                         .getSystemService(Context.POWER_SERVICE);
 
