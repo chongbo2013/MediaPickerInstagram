@@ -1,4 +1,4 @@
-package me.ningsk.filterlibrary.glfilter.utils;
+package me.ningsk.common.gl;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,6 @@ import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.text.TextUtils;
 import android.util.Log;
-
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,12 +26,14 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGL11;
 
-import me.ningsk.utilslibrary.utils.BitmapUtils;
-
-
-public class OpenGLUtils {
-
-    public static final String TAG = "JROpenGLUtils";
+/**
+ * <p>描述：Opengl工具类<p>
+ * 作者：ningsk<br>
+ * 日期：2018/11/16 09 21<br>
+ * 版本：v1.0<br>
+ */
+public class JROpenGLUtils {
+    public static final String TAG = "OpenGLUtils";
 
     // 从初始化失败
     public static final int GL_NOT_INIT = -1;
@@ -49,7 +50,7 @@ public class OpenGLUtils {
     private static final int SIZEOF_FLOAT = 4;
     private static final int SIZEOF_SHORT = 2;
 
-    private OpenGLUtils() {
+    private JROpenGLUtils() {
 
     }
 
@@ -281,15 +282,15 @@ public class OpenGLUtils {
     public static int createTexture(int textureType) {
         int[] textures = new int[1];
         GLES30.glGenTextures(1, textures, 0);
-        OpenGLUtils.checkGlError("glGenTextures");
+        checkGlError("glGenTextures");
         int textureId = textures[0];
         GLES30.glBindTexture(textureType, textureId);
-        OpenGLUtils.checkGlError("glBindTexture " + textureId);
+        checkGlError("glBindTexture " + textureId);
         GLES30.glTexParameterf(textureType, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_NEAREST);
         GLES30.glTexParameterf(textureType, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
         GLES30.glTexParameterf(textureType, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE);
         GLES30.glTexParameterf(textureType, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE);
-        OpenGLUtils.checkGlError("glTexParameter");
+        checkGlError("glTexParameter");
         return textureId;
     }
 
@@ -353,7 +354,7 @@ public class OpenGLUtils {
      * @return
      */
     public static int createTexture(byte[] bytes, int width, int height) {
-        return createTexture(bytes, width, height, OpenGLUtils.GL_NOT_TEXTURE);
+        return createTexture(bytes, width, height, GL_NOT_TEXTURE);
     }
 
     /**
@@ -474,35 +475,6 @@ public class OpenGLUtils {
         return textureHandle[0];
     }
 
-    /**
-     * 加载mipmap纹理
-     * @param context
-     * @param name
-     * @return
-     */
-    public static int createTextureFromAssets(Context context, String name) {
-        int[] textureHandle = new int[1];
-        GLES30.glGenTextures(1, textureHandle, 0);
-        if (textureHandle[0] != 0) {
-            Bitmap bitmap = BitmapUtils.getImageFromAssetsFile(context, name);
-            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureHandle[0]);
-
-            GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D,
-                    GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
-            GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D,
-                    GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR);
-            GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D,
-                    GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE);
-            GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D,
-                    GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE);
-            GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap, 0);
-            bitmap.recycle();
-        }
-        if (textureHandle[0] == 0) {
-            throw new RuntimeException("Error loading texture.");
-        }
-        return textureHandle[0];
-    }
 
     /**
      * 创建OES 类型的Texture

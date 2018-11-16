@@ -5,15 +5,15 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/MediaPickerInstagram.iml" filepath="$PROJECT_DIR$/.idea/MediaPickerInstagram.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cameralibrary/cameralibrary.iml" filepath="$PROJECT_DIR$/cameralibrary/cameralibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/facedetectlibrary/facedetectlibrary.iml" filepath="$PROJECT_DIR$/facedetectlibrary/facedetectlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/ffmpeglibrary/ffmpeglibrary.iml" filepath="$PROJECT_DIR$/ffmpeglibrary/ffmpeglibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/filterlibrary/filterlibrary.iml" filepath="$PROJECT_DIR$/filterlibrary/filterlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/imagecroplibrary/imagecroplibrary.iml" filepath="$PROJECT_DIR$/imagecroplibrary/imagecroplibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagelibrary/imagelibrary.iml" filepath="$PROJECT_DIR$/imagelibrary/imagelibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" filepath="$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" filepath="$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/svideosdk/svideosdk.iml" filepath="$PROJECT_DIR$/svideosdk/svideosdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/utilslibrary/utilslibrary.iml" filepath="$PROJECT_DIR$/utilslibrary/utilslibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/videocroplibrary/videocroplibrary.iml" filepath="$PROJECT_DIR$/videocroplibrary/videocroplibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/videolibrary/videolibrary.iml" filepath="$PROJECT_DIR$/videolibrary/videolibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/videotracklibrary/videotracklibrary.iml" filepath="$PROJECT_DIR$/videotracklibrary/videotracklibrary.iml" />
     </modules>
