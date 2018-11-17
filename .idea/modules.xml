@@ -12,10 +12,10 @@
       <module fileurl="file://$PROJECT_DIR$/imagelibrary/imagelibrary.iml" filepath="$PROJECT_DIR$/imagelibrary/imagelibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" filepath="$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" filepath="$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/record/record.iml" filepath="$PROJECT_DIR$/record/record.iml" />
       <module fileurl="file://$PROJECT_DIR$/svideosdk/svideosdk.iml" filepath="$PROJECT_DIR$/svideosdk/svideosdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/utilslibrary/utilslibrary.iml" filepath="$PROJECT_DIR$/utilslibrary/utilslibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/videolibrary/videolibrary.iml" filepath="$PROJECT_DIR$/videolibrary/videolibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/videotracklibrary/videotracklibrary.iml" filepath="$PROJECT_DIR$/videotracklibrary/videotracklibrary.iml" />
     </modules>
   </component>
 </project>
