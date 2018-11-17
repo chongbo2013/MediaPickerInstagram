@@ -6,23 +6,23 @@ import android.view.View;
 
 public class SpacesItemDecoration2 extends RecyclerView.ItemDecoration{
 
-    private int space;
-    private int thumbnailsCount;
+    private int _Space;
+    private int _ThumbnailsCount;
 
     public SpacesItemDecoration2(int space, int thumbnailsCount) {
-        this.space = space;
-        this.thumbnailsCount = thumbnailsCount;
+        _Space = space;
+        _ThumbnailsCount = thumbnailsCount;
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         int position = parent.getChildAdapterPosition(view);
         if (position == 0) {
-            outRect.left = space;
+            outRect.left = _Space;
             outRect.right = 0;
-        } else if (thumbnailsCount > 10 && position == thumbnailsCount - 1) {
+        } else if (_ThumbnailsCount > 10 && position == _ThumbnailsCount - 1) {
             outRect.left = 0;
-            outRect.right = space;
+            outRect.right = _Space;
         } else {
             outRect.left = 0;
             outRect.right = 0;
