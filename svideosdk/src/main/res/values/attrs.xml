@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="JrViewFanProgressBar">
+        <attr name="circleMaxProgress" format="float|reference"/>
+        <attr name="circleProgress" format="float|reference"/>
+        <attr name="internalRadius" format="dimension|reference"/>
+        <attr name="outRadius" format="dimension|reference|enum">
+            <enum name="match_parent" value="-1"/>
+        </attr>
+        <attr name="internalBackgroundColor" format="color|reference"/>
+        <attr name="outBackgroundColor" format="color|reference"/>
+        <attr name="startAngle" format="float|reference"/>
+        <attr name="internalAlpha" format="float|reference"/>
+        <attr name="outAlpha" format="float|reference"/>
+        <attr name="centerX" format="float|reference"/>
+        <attr name="centerY" format="float|reference"/>
+        <attr name="outDirection" format="enum">
+            <enum name="clockwise" value="-1"/>
+            <enum name="counterclockwise" value="-1"/>
+        </attr>
+        <attr name="internalDirection" format="enum">
+            <enum name="clockwise" value="1"/>
+            <enum name="counterclockwise" value="-1"/>
+        </attr>
+        <attr name="initStyle" format="enum">
+            <enum name="fill" value="1"/>
+            <enum name="empty" value="0"/>
+        </attr>
+    </declare-styleable>
+</resources>

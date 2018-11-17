@@ -1,1 +1,1 @@
-include ':app', ':mediascanlibrary', ':filterlibrary', ':landmarklibrary', ':ffmpeglibrary', ':cameralibrary', ':utilslibrary', ':facedetectlibrary', ':videolibrary', ':imagelibrary', ':svideosdk', ':common', ':record'
+include ':app', ':mediascanlibrary', ':filterlibrary', ':landmarklibrary', ':ffmpeglibrary', ':cameralibrary', ':utilslibrary', ':facedetectlibrary', ':videolibrary', ':imagelibrary', ':svideosdk', ':common', ':crop', ':recorder'
