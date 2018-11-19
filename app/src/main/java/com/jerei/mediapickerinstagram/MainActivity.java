@@ -80,12 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化动态贴纸、滤镜等资源
      */
     private void initResources() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ResourceHelper.initAssetsResource(MainActivity.this);
-                FilterHelper.initAssetsFilter(MainActivity.this);
-            }
+        new Thread(() -> {
+            ResourceHelper.initAssetsResource(MainActivity.this);
+            FilterHelper.initAssetsFilter(MainActivity.this);
         }).start();
     }
 
@@ -97,24 +94,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCameraRatio(AspectRatio.RATIO_1_1)
                 .showFacePoints(false)
                 .showFps(false)
-                .setGalleryListener(new OnGallerySelectedListener() {
-                    @Override
-                    public void onGalleryClickListener(GalleryType type) {
-                        scanMedia();
-                    }
-                })
-                .setPreviewCaptureListener(new OnPreviewCaptureListener() {
-                    @Override
-                    public void onMediaSelectedListener(String path, GalleryType type) {
-                        if (type == GalleryType.PICTURE) {
-                            Intent intent = new Intent(MainActivity.this, ImageEditActivity.class);
-                            intent.putExtra(ImageEditActivity.PATH, path);
-                            startActivity(intent);
-                        } else if (type == GalleryType.VIDEO) {
-                            Intent intent = new Intent(MainActivity.this, VideoEditActivity.class);
-                            intent.putExtra(VideoEditActivity.PATH, path);
-                            startActivity(intent);
-                        }
+                .setGalleryListener(type -> scanMedia())
+                .setPreviewCaptureListener((path, type) -> {
+                    if (type == GalleryType.PICTURE) {
+                        Intent intent = new Intent(MainActivity.this, ImageEditActivity.class);
+                        intent.putExtra(ImageEditActivity.PATH, path);
+                        startActivity(intent);
+                    } else if (type == GalleryType.VIDEO) {
+                        Intent intent = new Intent(MainActivity.this, VideoEditActivity.class);
+                        intent.putExtra(VideoEditActivity.PATH, path);
+                        startActivity(intent);
                     }
                 })
                 .startPreview();
