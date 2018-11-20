@@ -46,5 +46,6 @@ dependencies {
     implementation project(':landmarklibrary')
     implementation project(':utilslibrary')
     implementation project(":facedetectlibrary")
+    implementation project(":mediascanlibrary")
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
