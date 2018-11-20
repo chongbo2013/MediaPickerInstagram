@@ -51,6 +51,7 @@ import me.ningsk.mediascanlibrary.utils.ToastManage;
 import me.ningsk.mediascanlibrary.widget.CoordinatorLinearLayout;
 import me.ningsk.mediascanlibrary.widget.CoordinatorRecyclerView;
 import me.ningsk.mediascanlibrary.widget.FolderPopupWindow;
+import me.ningsk.mediascanlibrary.widget.SizeChangedNotifier;
 import me.ningsk.mediascanlibrary.widget.VideoTrimFrameLayout;
 import me.ningsk.mediascanlibrary.widget.cropper.nocropper.CropperView;
 
@@ -61,7 +62,8 @@ import me.ningsk.mediascanlibrary.widget.cropper.nocropper.CropperView;
  * 版本：v1.0<br>
  */
 public class PhotoSelectorFragment extends Fragment implements MediaLoader.MediaCallBack, View.OnClickListener, FolderAdapter.OnItemClickListener, Handler.Callback,
-        MediaAdapter.OnPhotoSelectChangedListener, TextureView.SurfaceTextureListener, VideoTrimFrameLayout.OnVideoScrollCallBack, MediaPlayer.OnVideoSizeChangedListener {
+        MediaAdapter.OnPhotoSelectChangedListener, TextureView.SurfaceTextureListener, VideoTrimFrameLayout.OnVideoScrollCallBack,
+        MediaPlayer.OnVideoSizeChangedListener,SizeChangedNotifier.Listener {
     private static final String TAG = PhotoSelectorFragment.class.getSimpleName();
     private final MediaLoader mMediaLoader = new MediaLoader();
     private PhotoDialog dialog;
@@ -169,6 +171,8 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         cropperView = view.findViewById(R.id.cropper);
         cropperView.setFillMode(false);
         frame = view.findViewById(R.id.surface_layout);
+        frame.setOnSizeChangedListener(this);
+        frame.setOnScrollCallBack(this);
         textureView = view.findViewById(R.id.video_textureview);
         textureView.setSurfaceTextureListener(this);
         ivSnap = view.findViewById(R.id.snap_button);
@@ -353,6 +357,32 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
     private void resetMediaPlayer() {
         if (mPlayer != null) {
             mPlayer.reset();
+        } else {
+            if (mPlayer == null && mSurface != null) {
+                mPlayer = new MediaPlayer();
+                mPlayer.setSurface(mSurface);
+                try {
+                    mPlayer.setDataSource(videoInfo.getPath());
+                    mPlayer.setOnPreparedListener(mp -> {
+                        if (!isPause) {
+                            playVideo();
+                        } else {
+                            isPause = false;
+                            mPlayer.start();
+                            mPlayer.seekTo(currentPlayPos);
+                            playHandler.sendEmptyMessageDelayed(PAUSE_VIDEO, 100);
+                        }
+                    });
+                    mPlayer.prepare();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mPlayer.setOnVideoSizeChangedListener(this);
+                mPlayer.setOnCompletionListener(mp -> {
+                    playVideo();
+                });
+
+            }
         }
     }
 
@@ -476,8 +506,6 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
 
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
-
     }
 
     @Override
@@ -575,6 +603,8 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
             return;
         }
         mPlayer.pause();
+        mStartTime = mPlayer.getCurrentPosition();
+
         playHandler.removeMessages(PLAY_VIDEO);
     }
 
@@ -646,4 +676,38 @@ public class PhotoSelectorFragment extends Fragment implements MediaLoader.Media
         resetScroll();
     }
 
+    @Override
+    public void onSizeChanged(View view, int w, int h, int oldw, int oldh) {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isVideo) {
+            return;
+        }
+        if (isPause){
+            resumeVideo();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (!isVideo) {
+            super.onPause();
+            return;
+        }
+        if (playState == PLAY_VIDEO) {
+            pauseVideo();
+            playState = PAUSE_VIDEO;
+        }
+        isPause = true;
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
