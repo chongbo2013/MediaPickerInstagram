@@ -23,6 +23,19 @@
             android:id="@+id/cropper"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        <me.ningsk.mediascanlibrary.widget.VideoTrimFrameLayout
+            android:id="@+id/surface_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextureView
+                android:id="@+id/video_textureview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleX="1.0001"
+                android:scaleY="1.0001" />
+        </me.ningsk.mediascanlibrary.widget.VideoTrimFrameLayout>
+
         <ImageView
             android:id="@+id/snap_button"
             android:layout_width="26dp"

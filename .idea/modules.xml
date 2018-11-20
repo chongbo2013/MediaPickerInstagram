@@ -13,7 +13,6 @@
       <module fileurl="file://$PROJECT_DIR$/filterlibrary/filterlibrary.iml" filepath="$PROJECT_DIR$/filterlibrary/filterlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagelibrary/imagelibrary.iml" filepath="$PROJECT_DIR$/imagelibrary/imagelibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" filepath="$PROJECT_DIR$/landmarklibrary/landmarklibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/log/log.iml" filepath="$PROJECT_DIR$/log/log.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" filepath="$PROJECT_DIR$/mediascanlibrary/mediascanlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/recorder/recorder.iml" filepath="$PROJECT_DIR$/recorder/recorder.iml" />
       <module fileurl="file://$PROJECT_DIR$/svideosdk/svideosdk.iml" filepath="$PROJECT_DIR$/svideosdk/svideosdk.iml" />
