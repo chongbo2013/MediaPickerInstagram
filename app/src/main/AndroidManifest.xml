@@ -44,5 +44,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".YiLaBaoActivity" />
+        <activity android:name=".CustomCameraActivity"
+            android:theme="@style/NoActionBarTheme" ></activity>
     </application>
+
 </manifest>

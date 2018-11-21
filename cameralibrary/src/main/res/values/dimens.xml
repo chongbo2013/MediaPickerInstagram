@@ -9,7 +9,7 @@
     <dimen name="stickers_width_height">40dp</dimen>
     <dimen name="filters_width_height">40dp</dimen>
     <dimen name="bottom_indicator_height">40dp</dimen>
-    <dimen name="button_margin_horizontal">40dp</dimen>
+    <dimen name="button_margin_horizontal">60dp</dimen>
     <dimen name="bottom_layout_margin">10dp</dimen>
     <!---->
     <!--删除、预览按钮的宽高-->

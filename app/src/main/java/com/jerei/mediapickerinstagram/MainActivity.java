@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int REQUEST_CODE = 0;
     private Button mBtnCamera;
     private Button mBtnEdit;
+    private Button mBtnTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnCamera.setOnClickListener(this);
         mBtnEdit = (Button) findViewById(R.id.btn_edit);
         mBtnEdit.setOnClickListener(this);
+        mBtnTest = (Button) findViewById(R.id.btn_test);
+        mBtnTest.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +75,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_edit: {
                 scanMedia();
                 break;
+            }
+
+            case R.id.btn_test: {
+                Intent intent = new Intent(MainActivity.this, CustomCameraActivity.class);
+                startActivity(intent);
             }
         }
     }

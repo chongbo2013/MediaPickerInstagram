@@ -1,4 +1,4 @@
-package me.ningsk.cameralibrary.fragment;
+package com.jerei.mediapickerinstagram.fragment;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,21 +17,19 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+
+import com.jerei.mediapickerinstagram.R;
 
 import java.nio.ByteBuffer;
 import java.util.List;
 
-import me.ningsk.utilslibrary.fragment.PermissionConfirmDialogFragment;
-import me.ningsk.utilslibrary.fragment.PermissionErrorDialogFragment;
-import me.ningsk.utilslibrary.utils.BitmapUtils;
-import me.ningsk.utilslibrary.utils.BrightnessUtils;
-import me.ningsk.utilslibrary.utils.PermissionUtils;
-import me.ningsk.cameralibrary.R;
 import me.ningsk.cameralibrary.engine.camera.CameraEngine;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.listener.OnCameraCallback;
 import me.ningsk.cameralibrary.engine.listener.OnCaptureListener;
+import me.ningsk.cameralibrary.engine.model.AspectRatio;
 import me.ningsk.cameralibrary.engine.render.PreviewRecorder;
 import me.ningsk.cameralibrary.engine.render.PreviewRenderer;
 import me.ningsk.cameralibrary.listener.OnPageOperationListener;
@@ -39,19 +37,14 @@ import me.ningsk.cameralibrary.utils.PathConstraints;
 import me.ningsk.cameralibrary.widget.AspectFrameLayout;
 import me.ningsk.cameralibrary.widget.JRSurfaceView;
 import me.ningsk.cameralibrary.widget.ShutterButton;
-import me.ningsk.facedetectlibrary.FaceTracker;
-import me.ningsk.landmark.LandmarkEngine;
-import me.ningsk.listener.FaceTrackerCallback;
+import me.ningsk.utilslibrary.fragment.PermissionConfirmDialogFragment;
+import me.ningsk.utilslibrary.fragment.PermissionErrorDialogFragment;
+import me.ningsk.utilslibrary.utils.BitmapUtils;
+import me.ningsk.utilslibrary.utils.BrightnessUtils;
+import me.ningsk.utilslibrary.utils.PermissionUtils;
 
-/**
- * <p>描述：相机预览界面<p>
- * 作者：ningsk<br>
- * 日期：2018/10/30 17 11<br>
- * 版本：v1.0<br>
- */
-public class CapturePhotoFragment extends Fragment implements View.OnClickListener{
+public class CapturePreviewFragment extends Fragment implements View.OnClickListener {
 
-    private static final String TAG = CapturePhotoFragment.class.getSimpleName();
     private static final String FRAGMENT_DIALOG = "dialog";
 
     // 对焦大小
@@ -75,10 +68,8 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     private AspectFrameLayout mAspectLayout;
     private JRSurfaceView mCameraSurfaceView;
 
-    private ImageView mBtnFlash;
-    private ImageView mBtnSwitch;
-    // 默认不打开
-    private boolean mFlashOn = false;
+    private Button mBtnSwitch;
+    private Button mBtnGallery;
 
 
 
@@ -93,8 +84,9 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     // 页面跳转监听器
     private OnPageOperationListener mPageListener;
 
-    public CapturePhotoFragment() {
+    public CapturePreviewFragment() {
         mCameraParam = CameraParam.getInstance();
+        mCameraParam.setAspectRatio(AspectRatio.RATIO_16_9);
     }
 
     @Override
@@ -126,7 +118,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.fragment_capture_photo, container, false);
+        mContentView = inflater.inflate(R.layout.fragment_custom_camera, container, false);
         return mContentView;
     }
 
@@ -138,7 +130,6 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
         } else {
             requestCameraPermission();
         }
-        initTracker();
     }
 
     /**
@@ -149,12 +140,14 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     private void initView(View view) {
         mBtnSwitch = view.findViewById(R.id.btn_switch);
         mBtnSwitch.setOnClickListener(this);
-        mBtnFlash = view.findViewById(R.id.btn_flash);
-        mBtnFlash.setOnClickListener(this);
+        mBtnGallery = view.findViewById(R.id.btn_gallery);
+        mBtnGallery.setOnClickListener(this);
         mAspectLayout = view.findViewById(R.id.layout_aspect);
-        mCameraSurfaceView = view.findViewById(R.id.surface_view);
-        mAspectLayout.setAspectRatio(mCameraParam.currentRatio);
+        mCameraSurfaceView = new JRSurfaceView(mActivity);
         mCameraSurfaceView.addMultiClickListener(mMultiClickListener);
+        mAspectLayout.addView(mCameraSurfaceView);
+        mAspectLayout.requestLayout();
+        mAspectLayout.setAspectRatio(mCameraParam.currentRatio);
         mAspectLayout.requestLayout();
         // 绑定需要渲染的SurfaceView
         PreviewRenderer.getInstance().setSurfaceView(mCameraSurfaceView);
@@ -168,7 +161,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
      */
     private void adjustBottomView() {
         boolean result = mCameraParam.currentRatio < CameraParam.Ratio_4_3;
-        mBtnShutter.setOuterBackgroundColor(result ? R.color.shutter_gray_dark : R.color.shutter_gray_light);
+        mBtnShutter.setOuterBackgroundColor(result ? me.ningsk.cameralibrary.R.color.shutter_gray_dark : me.ningsk.cameralibrary.R.color.shutter_gray_light);
     }
 
     @Override
@@ -203,12 +196,8 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     @Override
     public void onDestroy() {
         mPageListener = null;
-        // 销毁人脸检测器
-        releaseFaceTracker();
         // 关掉渲染引擎
         PreviewRenderer.getInstance().destroyRenderer();
-        // 清理关键点
-        LandmarkEngine.getInstance().clearAll();
         super.onDestroy();
     }
 
@@ -231,17 +220,14 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
 
         int i = v.getId();
-        if (i == R.id.btn_flash) {
-            mFlashOn = !mFlashOn;
-            setFlashLight(mFlashOn);
+        if (i == R.id.btn_gallery) {
+            openGallery();
         } else if (i == R.id.btn_switch) {
             switchCamera();
         } else if (i == R.id.btn_shutter) {
             takePicture();
         }
     }
-
-
 
 
     private void setFlashLight(boolean flashOn) {
@@ -260,8 +246,6 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     }
 
 
-
-
     /**
      * 拍照
      */
@@ -270,13 +254,11 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
 
             if (mCameraParam.takeDelay && !mDelayTaking) {
                 mDelayTaking = true;
-                mMainHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mDelayTaking = false;
-                        PreviewRenderer.getInstance().takePicture(); }
-                        }, 3000);
-                } else {
+                mMainHandler.postDelayed(() -> {
+                    mDelayTaking = false;
+                    PreviewRenderer.getInstance().takePicture();
+                }, 3000);
+            } else {
                 PreviewRenderer.getInstance().takePicture();
             }
 
@@ -284,9 +266,6 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
             requestStoragePermission();
         }
     }
-
-
-
 
 
     /**
@@ -328,20 +307,15 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     };
 
 
-
-
     // ------------------------------------ 拍照回调 ---------------------------------------------
     private OnCaptureListener mCaptureCallback = new OnCaptureListener() {
         @Override
         public void onCapture(final ByteBuffer buffer, final int width, final int height) {
-            mMainHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    String filePath = PathConstraints.getImageCachePath(mActivity);
-                    BitmapUtils.saveBitmap(filePath, buffer, width, height);
-                    if (mPageListener != null) {
-                        mPageListener.onOpenImageEditPage(filePath);
-                    }
+            mMainHandler.post(() -> {
+                String filePath = PathConstraints.getImageCachePath(mActivity);
+                BitmapUtils.saveBitmap(filePath, buffer, width, height);
+                if (mPageListener != null) {
+                    mPageListener.onOpenImageEditPage(filePath);
                 }
             });
         }
@@ -352,8 +326,6 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
 
         @Override
         public void onCameraOpened() {
-            // 相机打开之后准备检测器
-            prepareTracker();
         }
 
         @Override
@@ -361,9 +333,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
             if (mBtnShutter != null && !mBtnShutter.isEnableOpened()) {
                 mBtnShutter.setEnableOpened(true);
             }
-            // 人脸检测
-            FaceTracker.getInstance().trackFace(data,
-                    mCameraParam.previewWidth, mCameraParam.previewHeight);
+
             // 请求刷新
             requestRender();
         }
@@ -378,43 +348,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
         PreviewRenderer.getInstance().requestRender();
     }
 
-    /**
-     * 初始化人脸检测器
-     */
-    private void initTracker() {
-        FaceTracker.getInstance()
-                .setFaceCallback(mFaceTrackerCallback)
-                .previewTrack(true)
-                .initTracker();
-    }
 
-    /**
-     * 销毁人脸检测器
-     */
-    private void releaseFaceTracker() {
-        FaceTracker.getInstance().destroyTracker();
-    }
-
-    /**
-     * 准备人脸检测器
-     */
-    private void prepareTracker() {
-        FaceTracker.getInstance()
-                .setBackCamera(mCameraParam.backCamera)
-                .prepareFaceTracker(mActivity, mCameraParam.orientation,
-                        mCameraParam.previewWidth, mCameraParam.previewHeight);
-    }
-
-    /**
-     * 检测完成回调
-     */
-    private FaceTrackerCallback mFaceTrackerCallback = new FaceTrackerCallback() {
-        @Override
-        public void onTrackingFinish() {
-            // 检测完成需要请求刷新
-            requestRender();
-        }
-    };
 
 
     /**
@@ -422,7 +356,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
      */
     private void requestCameraPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-            PermissionConfirmDialogFragment.newInstance(getString(R.string.request_camera_permission), PermissionUtils.REQUEST_CAMERA_PERMISSION, true)
+            PermissionConfirmDialogFragment.newInstance(getString(me.ningsk.cameralibrary.R.string.request_camera_permission), PermissionUtils.REQUEST_CAMERA_PERMISSION, true)
                     .show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } else {
             requestPermissions(new String[]{Manifest.permission.CAMERA},
@@ -435,7 +369,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
      */
     private void requestStoragePermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            PermissionConfirmDialogFragment.newInstance(getString(R.string.request_storage_permission), PermissionUtils.REQUEST_STORAGE_PERMISSION)
+            PermissionConfirmDialogFragment.newInstance(getString(me.ningsk.cameralibrary.R.string.request_storage_permission), PermissionUtils.REQUEST_STORAGE_PERMISSION)
                     .show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } else {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -448,7 +382,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
      */
     private void requestRecordSoundPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
-            PermissionConfirmDialogFragment.newInstance(getString(R.string.request_sound_permission), PermissionUtils.REQUEST_SOUND_PERMISSION)
+            PermissionConfirmDialogFragment.newInstance(getString(me.ningsk.cameralibrary.R.string.request_sound_permission), PermissionUtils.REQUEST_SOUND_PERMISSION)
                     .show(getChildFragmentManager(), FRAGMENT_DIALOG);
         } else {
             requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO},
@@ -460,7 +394,7 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionUtils.REQUEST_CAMERA_PERMISSION) {
             if (grantResults.length != 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                PermissionErrorDialogFragment.newInstance(getString(R.string.request_camera_permission), PermissionUtils.REQUEST_CAMERA_PERMISSION, true)
+                PermissionErrorDialogFragment.newInstance(getString(me.ningsk.cameralibrary.R.string.request_camera_permission), PermissionUtils.REQUEST_CAMERA_PERMISSION, true)
                         .show(getChildFragmentManager(), FRAGMENT_DIALOG);
             } else {
                 mCameraEnable = true;
@@ -468,14 +402,14 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
             }
         } else if (requestCode == PermissionUtils.REQUEST_STORAGE_PERMISSION) {
             if (grantResults.length != 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                PermissionErrorDialogFragment.newInstance(getString(R.string.request_storage_permission), PermissionUtils.REQUEST_STORAGE_PERMISSION)
+                PermissionErrorDialogFragment.newInstance(getString(me.ningsk.cameralibrary.R.string.request_storage_permission), PermissionUtils.REQUEST_STORAGE_PERMISSION)
                         .show(getChildFragmentManager(), FRAGMENT_DIALOG);
             } else {
                 mStorageWriteEnable = true;
             }
         } else if (requestCode == PermissionUtils.REQUEST_SOUND_PERMISSION) {
             if (grantResults.length != 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                PermissionErrorDialogFragment.newInstance(getString(R.string.request_sound_permission), PermissionUtils.REQUEST_SOUND_PERMISSION)
+                PermissionErrorDialogFragment.newInstance(getString(me.ningsk.cameralibrary.R.string.request_sound_permission), PermissionUtils.REQUEST_SOUND_PERMISSION)
                         .show(getChildFragmentManager(), FRAGMENT_DIALOG);
             } else {
                 mCameraParam.audioPermitted = true;
@@ -519,23 +453,18 @@ public class CapturePhotoFragment extends Fragment implements View.OnClickListen
                 if (TextUtils.isEmpty(reason)) {
                     return;
                 }
-                // 当点击了home键时需要停止预览，防止后台一直持有相机
-                if (reason.equals(SYSTEM_DIALOG_REASON_HOME_KEY)) {
-                    // 停止录制
-                    if (PreviewRecorder.getInstance().isRecording()) {
-                        // 取消录制
-                        PreviewRecorder.getInstance().cancelRecording();
-                        // 重置进入条
-                        mBtnShutter.setProgress((int) PreviewRecorder.getInstance().getVisibleDuration());
-                        // 删除分割线
-                        mBtnShutter.deleteSplitView();
-                        // 关闭按钮
-                        mBtnShutter.closeButton();
-                    }
-                }
             }
         }
     };
+
+    /**
+     * 打开图库
+     */
+    private void openGallery() {
+        if (mPageListener != null) {
+            mPageListener.onOpenGalleryPage();
+        }
+    }
 
     /**
      * 设置页面监听器

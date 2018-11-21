@@ -4,4 +4,5 @@
     <!-- 首页按钮 -->
     <string name="btn_camera">滤镜相机</string>
     <string name="btn_edit">编辑图片/视频</string>
+    <string name="btn_test">测试颜值</string>
 </resources>

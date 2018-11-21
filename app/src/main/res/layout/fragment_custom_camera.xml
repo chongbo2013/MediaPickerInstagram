@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.CapturePreviewFragment">
+
+    <!-- 预览视图 -->
+    <me.ningsk.cameralibrary.widget.AspectFrameLayout
+        android:id="@+id/layout_aspect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_gravity="top">
+    </me.ningsk.cameralibrary.widget.AspectFrameLayout>
+    <ImageView
+        android:layout_width="@dimen/button_preview_width_height"
+        android:layout_height="@dimen/button_preview_width_height"
+        android:layout_margin="@dimen/setting_margin"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_back"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="80dp"
+        android:src="@mipmap/header_frame"
+        android:scaleType="centerInside"/>
+
+
+    <!-- 底部按钮 -->
+    <include
+        layout="@layout/view_custom_camera_bottom"/>
+</FrameLayout>

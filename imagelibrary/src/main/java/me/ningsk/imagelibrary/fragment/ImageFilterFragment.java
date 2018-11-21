@@ -15,7 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
 import java.util.ArrayList;
@@ -34,20 +35,16 @@ import me.ningsk.imagelibrary.adapter.ImageFilterAdapter;
  * 日期：2018/10/30 18 10<br>
  * 版本：v1.0<br>
  */
-public class ImageFilterFragment extends Fragment implements View.OnClickListener {
+public class ImageFilterFragment extends Fragment {
 
     private View mContentView;
-
-    private Button mBtnInternal;
-    private Button mBtnCustomize;
-    private Button mBtnCollection;
-    private Button mBtnAdd;
-    private Button mBtnSetting;
-
-    private FrameLayout mLayoutFilterContent;
+    private RelativeLayout mLayoutFilterContent;
+    private LinearLayout mLayoutContent;
     private GLImageSurfaceView mCainImageView;
     private RecyclerView mFiltersView;
     private LinearLayoutManager mLayoutManager;
+    private int screenWidth;
+
 
     private Activity mActivity;
 
@@ -84,23 +81,32 @@ public class ImageFilterFragment extends Fragment implements View.OnClickListene
 
     /**
      * 初始化视图
+     *
      * @param view
      */
     private void initView(View view) {
         // 图片内容布局
-        mCainImageView = (GLImageSurfaceView) view.findViewById(R.id.glImageView);
+        mCainImageView = view.findViewById(R.id.glImageView);
+        mLayoutContent = view.findViewById(R.id.layout_content);
+        resizeLiner();
         if (mBitmap != null) {
             mCainImageView.setBitmap(mBitmap);
         }
         // 滤镜内容框
-        mLayoutFilterContent = (FrameLayout) view.findViewById(R.id.layout_filter_content);
-        mBtnInternal = (Button) view.findViewById(R.id.btn_internal);
-        mBtnCustomize = (Button) view.findViewById(R.id.btn_customize);
-        mBtnCollection = (Button) view.findViewById(R.id.btn_collection);
-        mBtnAdd = (Button) view.findViewById(R.id.btn_add);
-        mBtnSetting = (Button) view.findViewById(R.id.btn_setting);
+        mLayoutFilterContent = view.findViewById(R.id.layout_filter_content);
         showFilters();
     }
+
+    private void resizeLiner() {
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mLayoutContent.getLayoutParams();
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
+        layoutParams.width = screenWidth;
+        layoutParams.height = screenWidth;
+        mLayoutContent.post(() -> {
+            mLayoutContent.setLayoutParams(layoutParams);
+        });
+    }
+
 
     @Override
     public void onResume() {
@@ -130,63 +136,28 @@ public class ImageFilterFragment extends Fragment implements View.OnClickListene
         super.onDetach();
     }
 
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.btn_internal) {
-
-        } else if (id == R.id.btn_customize) {
-
-        } else if (id == R.id.btn_collection) {
-
-        } else if (id == R.id.btn_add) {
-
-        } else if (id == R.id.btn_setting) {
-
-        }
-    }
-
-    /**
-     * 重置按钮颜色
-     */
-    private void resetButtonColor() {
-        mBtnInternal.setTextColor(Color.WHITE);
-        mBtnCustomize.setTextColor(Color.WHITE);
-        mBtnCollection.setTextColor(Color.WHITE);
-        mBtnAdd.setTextColor(Color.WHITE);
-        mBtnSetting.setTextColor(Color.WHITE);
-    }
-
     /**
      * 显示滤镜列表
      */
     private void showFilters() {
-        resetButtonColor();
-        mBtnInternal.setTextColor(Color.BLUE);
-        if (mFiltersView == null) {
-            mFiltersView = new RecyclerView(mActivity);
-            mLayoutManager = new LinearLayoutManager(getActivity());
-            mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            mFiltersView.setLayoutManager(mLayoutManager);
-            ImageFilterAdapter adapter = new ImageFilterAdapter(mActivity, FilterHelper.getFilterList());
-            mFiltersView.setAdapter(adapter);
-            adapter.addOnFilterChangeListener(new ImageFilterAdapter.OnFilterChangeListener() {
-                @Override
-                public void onFilterChanged(final ResourceData resourceData) {
-                    if (mCainImageView != null) {
-                        mCainImageView.setFilter(resourceData);
-                    }
-                }
-            });
-        }
-        if (mLayoutFilterContent != null) {
-            mLayoutFilterContent.removeAllViews();
-            mLayoutFilterContent.addView(mFiltersView);
-        }
+
+        mFiltersView = mContentView.findViewById(R.id.filter_recyclerview);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mFiltersView.setLayoutManager(mLayoutManager);
+        ImageFilterAdapter adapter = new ImageFilterAdapter(mActivity, FilterHelper.getFilterList());
+        mFiltersView.setAdapter(adapter);
+        adapter.addOnFilterChangeListener(resourceData -> {
+            if (mCainImageView != null) {
+                mCainImageView.setFilter(resourceData);
+            }
+        });
+
     }
 
     /**
      * 设置bitmap
+     *
      * @param bitmap
      */
     public void setBitmap(Bitmap bitmap) {
@@ -198,6 +169,7 @@ public class ImageFilterFragment extends Fragment implements View.OnClickListene
 
     /**
      * 是否显示GLSurfaceView，解决多重fragment时显示问题
+     *
      * @param showing
      */
     public void showGLSurfaceView(boolean showing) {

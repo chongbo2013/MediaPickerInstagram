@@ -1,12 +1,10 @@
 package me.ningsk.cameralibrary.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -16,8 +14,7 @@ import me.ningsk.cameralibrary.R;
 import me.ningsk.cameralibrary.adapter.ViewPagerAdapter;
 import me.ningsk.cameralibrary.engine.camera.CameraParam;
 import me.ningsk.cameralibrary.engine.model.GalleryType;
-import me.ningsk.cameralibrary.fragment.CapturePhotoFragment;
-import me.ningsk.cameralibrary.fragment.CaptureVideoFragment;
+import me.ningsk.cameralibrary.fragment.CapturePreviewFragment;
 import me.ningsk.cameralibrary.fragment.GalleryPickerFragment;
 import me.ningsk.cameralibrary.listener.OnPageOperationListener;
 import me.ningsk.cameralibrary.widget.ToolbarView;
@@ -146,10 +143,11 @@ public class CameraActivity extends AppCompatActivity implements OnPageOperation
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new GalleryPickerFragment());
         mMainTabLayout.addTab(mMainTabLayout.newTab().setText(galleryIndicator[0]));
-        fragments.add(new CapturePhotoFragment());
+        CapturePreviewFragment photoFragment = new CapturePreviewFragment();
+        photoFragment.setOnPageOperationListener(this);
+        fragments.add(photoFragment);
+
         mMainTabLayout.addTab(mMainTabLayout.newTab().setText(galleryIndicator[1]));
-//        fragments.add(new CaptureVideoFragment());
-//        mMainTabLayout.addTab(mMainTabLayout.newTab().setText(galleryIndicator[2]));
         return fragments;
     }
 

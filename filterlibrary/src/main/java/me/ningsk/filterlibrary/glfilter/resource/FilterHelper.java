@@ -41,7 +41,7 @@ public class FilterHelper extends ResourceBaseHelper {
         // 清空旧数据
         mFilterList.clear();
         // 添加滤镜数据
-        mFilterList.add(new ResourceData("none", "assets://filter/none.zip", ResourceType.NONE, "none", "assets://thumbs/filters/source.png"));
+        mFilterList.add(new ResourceData("原始", "assets://filter/none.zip", ResourceType.NONE, "none", "assets://thumbs/filters/source.png"));
         mFilterList.add(new ResourceData("amaro", "assets://filter/amaro.zip", ResourceType.FILTER, "amaro", "assets://thumbs/filters/amaro.png"));
         mFilterList.add(new ResourceData("anitque", "assets://filter/anitque.zip", ResourceType.FILTER, "anitque", "assets://thumbs/filters/anitque.png"));
         mFilterList.add(new ResourceData("blackcat", "assets://filter/blackcat.zip", ResourceType.FILTER, "blackcat", "assets://thumbs/filters/blackcat.png"));

@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="bottom"
-    android:layout_marginTop="@dimen/dp5"
-    android:gravity="bottom">
+    android:layout_marginTop="@dimen/dp5">
 
     <FrameLayout
         android:id="@+id/item_filter_panel"
@@ -31,7 +30,7 @@
         android:layout_marginLeft="@dimen/dp10"
         android:layout_marginRight="@dimen/dp10"
         android:layout_gravity="bottom|center_horizontal"
-        android:textColor="@android:color/white"
+        android:textColor="@color/bar_grey"
         android:gravity="center"
         android:textAlignment="center" />
 </LinearLayout>

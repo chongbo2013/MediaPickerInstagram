@@ -1,4 +1,3 @@
-
 apply plugin: 'com.android.library'
 
 android {
@@ -9,7 +8,6 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
-        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -23,30 +21,31 @@ android {
     }
 }
 
-repositories {
-    flatDir {
-        // 人脸关键点检测依赖库下放到facedetectlibrary
-        dirs project(':facedetectlibrary').file('libs')
-    }
-}
-
-
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+
     api(rootProject.ext.dependencies["support-v4"]) {
         exclude module: 'support-annotations'
     }
-    implementation rootProject.ext.dependencies["constraint-layout"]
-    api rootProject.ext.dependencies["appcompat-v7"]
-    api rootProject.ext.dependencies["support-annotations"]
-    api rootProject.ext.dependencies["recyclerview-v7"]
-    implementation rootProject.ext.dependencies["design"]
-    api rootProject.ext.dependencies["glide"]
-    implementation project(':filterlibrary')
-    implementation project(':landmarklibrary')
-    implementation project(':utilslibrary')
-    implementation project(":facedetectlibrary")
-    implementation project(":mediascanlibrary")
 
+    api(rootProject.ext.dependencies["appcompat-v7"]) {
+        exclude module: 'support-annotations'
+    }
+
+    api(rootProject.ext.dependencies["recyclerview-v7"]) {
+        exclude module: 'support-annotations'
+    }
+
+    api rootProject.ext.dependencies["support-annotations"]
+
+    api rootProject.ext.dependencies["glide"]
+    //rx
+    api rootProject.ext.dependencies["rxJava2"]
+    api rootProject.ext.dependencies["rxandroid"]
 }

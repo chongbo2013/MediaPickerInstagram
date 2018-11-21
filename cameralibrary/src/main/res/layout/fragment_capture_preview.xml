@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.CapturePhotoFragment">
+    tools:context=".fragment.CapturePreviewFragment">
 
     <!-- 预览视图 -->
     <me.ningsk.cameralibrary.widget.AspectFrameLayout

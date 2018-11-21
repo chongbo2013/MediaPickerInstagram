@@ -77,4 +77,5 @@ dependencies {
     implementation project(':cameralibrary')
     implementation project(':videolibrary')
     implementation project(":imagelibrary")
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
