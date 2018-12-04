@@ -51,7 +51,7 @@ import me.ningsk.listener.FaceTrackerCallback;
  */
 public class CapturePreviewFragment extends Fragment implements View.OnClickListener{
 
-    private static final String TAG = CapturePreviewFragment.class.getSimpleName();
+        private static final String TAG = CapturePreviewFragment.class.getSimpleName();
     private static final String FRAGMENT_DIALOG = "dialog";
 
     // 对焦大小
@@ -153,7 +153,7 @@ public class CapturePreviewFragment extends Fragment implements View.OnClickList
         mBtnFlash.setOnClickListener(this);
         mAspectLayout = view.findViewById(R.id.layout_aspect);
         mCameraSurfaceView = view.findViewById(R.id.surface_view);
-        mAspectLayout.setAspectRatio(mCameraParam.currentRatio);
+        mAspectLayout.setAspectRatio(CameraParam.Ratio_1_1);
         mCameraSurfaceView.addMultiClickListener(mMultiClickListener);
         mAspectLayout.requestLayout();
         // 绑定需要渲染的SurfaceView
@@ -167,7 +167,7 @@ public class CapturePreviewFragment extends Fragment implements View.OnClickList
      * 调整底部视图
      */
     private void adjustBottomView() {
-        boolean result = mCameraParam.currentRatio < CameraParam.Ratio_4_3;
+        boolean result = CameraParam.Ratio_1_1 < CameraParam.Ratio_4_3;
         mBtnShutter.setOuterBackgroundColor(result ? R.color.shutter_gray_dark : R.color.shutter_gray_light);
     }
 

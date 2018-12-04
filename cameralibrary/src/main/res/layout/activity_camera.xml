@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.ningsk.cameralibrary.widget.ToolbarView
-        android:id="@+id/mToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="4dp"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/mMainTabLayout"

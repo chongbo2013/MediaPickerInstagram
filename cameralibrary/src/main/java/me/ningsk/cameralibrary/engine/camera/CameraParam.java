@@ -36,7 +36,7 @@ public final class CameraParam {
     // 这里反过来是因为相机的分辨率跟屏幕的分辨率宽高刚好反过来
     public static final float Ratio_4_3 = 0.75f;
     public static final float Ratio_16_9 = 0.5625f;
-    public static final float Ratio_1_1 = 1f;
+    public static final float Ratio_1_1 = 0.75f;
 
     // 对焦权重最大值
     public static final int Weight =  100;

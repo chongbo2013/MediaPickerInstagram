@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:drawablePadding="2dp"
-            android:drawableRight="?attr/photo.arrow_down.icon"
+            android:drawableRight="@drawable/orange_arrow_down"
             android:ellipsize="end"
             android:gravity="center"
             android:maxEms="11"

@@ -1,5 +1,7 @@
 package me.ningsk.cameralibrary.listener;
 
+import me.ningsk.mediascanlibrary.entity.LocalMedia;
+
 /**
  * <p>描述：页面监听器<p>
  * 作者：ningsk<br>
@@ -15,7 +17,7 @@ public interface OnPageOperationListener {
     void onOpenImageEditPage(String path);
 
     // 打开视频编辑页面
-    void onOpenVideoEditPage(String path);
+    void onOpenVideoEditPage(LocalMedia media);
 
 }
 

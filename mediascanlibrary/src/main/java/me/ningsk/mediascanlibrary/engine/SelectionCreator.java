@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import java.util.ArrayList;
 
 import me.ningsk.mediascanlibrary.R;
-import me.ningsk.mediascanlibrary.activity.PhotoSelectorActivity;
 import me.ningsk.mediascanlibrary.config.MimeType;
 import me.ningsk.mediascanlibrary.config.SelectionOptions;
 import me.ningsk.mediascanlibrary.entity.LocalMedia;
@@ -159,13 +158,13 @@ public final class SelectionCreator {
      *
      * @param requestCode Identity of the request Activity or Fragment.
      */
-    public void forResult(int requestCode) {
+    public void forResult(int requestCode, Class<?> clazz) {
         if (!DoubleUtils.isFastDoubleClick()) {
             Activity activity = mMediaScanEngine.getActivity();
             if (activity == null) {
                 return;
             }
-            Intent intent = new Intent(activity, PhotoSelectorActivity.class);
+            Intent intent = new Intent(activity, clazz);
             Fragment fragment = mMediaScanEngine.getFragment();
             if (fragment != null) {
                 fragment.startActivityForResult(intent, requestCode);
